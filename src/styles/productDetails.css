@@ -1,0 +1,246 @@
+.product-page{
+    width:100%;
+    min-height:100vh;
+    padding:40px 6%;
+    background:#0b0f14;
+    animation:fadePage 0.6s ease;
+    }
+    
+    /* entrance animation */
+    
+    @keyframes fadePage{
+    0%{
+    opacity:0;
+    transform:translateY(20px);
+    }
+    100%{
+    opacity:1;
+    transform:translateY(0);
+    }
+    }
+    
+    /* main layout */
+    
+    .product-container{
+    display:grid;
+    grid-template-columns:100px 520px 1fr 320px;
+    gap:60px;
+    align-items:start;
+    max-width:1700px;
+    margin:auto;
+    }
+    
+    /* thumbnails */
+    
+    .product-thumbs{
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+    }
+    
+    .product-thumbs img{
+    width:80px;
+    height:80px;
+    object-fit:cover;
+    border-radius:10px;
+    cursor:pointer;
+    border:2px solid transparent;
+    background:#111;
+    padding:6px;
+    transition:all 0.25s ease;
+    }
+    
+    .product-thumbs img:hover{
+    border-color:#ff9900;
+    transform:scale(1.08);
+    box-shadow:0 8px 20px rgba(0,0,0,0.5);
+    }
+    
+    /* main image */
+    
+    .product-main-image{
+    background:#111;
+    border-radius:16px;
+    padding:40px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    height:520px;
+    overflow:hidden;
+    position:relative;
+    box-shadow:0 10px 40px rgba(0,0,0,0.6);
+    }
+    
+    .product-main-image img{
+    max-width:100%;
+    max-height:100%;
+    object-fit:contain;
+    transition:transform 0.6s ease;
+    }
+    
+    .product-main-image:hover img{
+    transform:scale(1.08);
+    }
+    
+    /* product info */
+    
+    .product-info{
+    color:white;
+    padding-top:10px;
+    max-width:650px;
+    animation:slideIn 0.8s ease;
+    }
+    
+    @keyframes slideIn{
+    0%{
+    opacity:0;
+    transform:translateX(40px);
+    }
+    100%{
+    opacity:1;
+    transform:translateX(0);
+    }
+    }
+    
+    .product-title{
+    font-size:38px;
+    font-weight:700;
+    margin-bottom:12px;
+    letter-spacing:0.5px;
+    }
+    
+    .product-rating{
+    color:#ff9900;
+    margin-bottom:14px;
+    font-size:14px;
+    }
+    
+    .product-price{
+    font-size:36px;
+    font-weight:700;
+    color:#ff9900;
+    margin-bottom:18px;
+    }
+    
+    .product-description{
+    color:#bdbdbd;
+    line-height:1.8;
+    font-size:15px;
+    }
+    
+    /* buy box */
+    
+    .buy-box{
+    background:#111;
+    padding:28px;
+    border-radius:14px;
+    border:1px solid #222;
+    position:sticky;
+    top:110px;
+    height:fit-content;
+    transition:all 0.3s ease;
+    box-shadow:0 6px 20px rgba(0,0,0,0.5);
+    }
+    
+    .buy-box:hover{
+    transform:translateY(-4px);
+    box-shadow:0 15px 40px rgba(0,0,0,0.7);
+    }
+    
+    .buy-price{
+    font-size:30px;
+    color:#ff9900;
+    font-weight:700;
+    margin-bottom:16px;
+    }
+    
+    .buy-btn{
+    width:100%;
+    padding:14px;
+    background:#ff9900;
+    border:none;
+    border-radius:8px;
+    font-weight:700;
+    cursor:pointer;
+    margin-bottom:12px;
+    transition:all 0.2s ease;
+    }
+    
+    .buy-btn:hover{
+    background:#ffb733;
+    transform:translateY(-2px);
+    }
+    
+    .cart-btn{
+    width:100%;
+    padding:14px;
+    background:#222;
+    border:none;
+    border-radius:8px;
+    color:white;
+    cursor:pointer;
+    transition:all 0.2s ease;
+    }
+    
+    .cart-btn:hover{
+    background:#333;
+    transform:translateY(-2px);
+    }
+    
+    /* responsive */
+    
+    @media (max-width:1300px){
+    
+    .product-container{
+    grid-template-columns:100px 1fr;
+    }
+    
+    .product-info{
+    grid-column:span 2;
+    }
+    
+    .buy-box{
+    grid-column:span 2;
+    position:static;
+    margin-top:30px;
+    }
+    
+    }
+
+    .stars{
+    color:#ff9900;
+    font-size:18px;
+    margin-right:6px;
+    }
+        
+    .review-count{
+    color:#aaa;
+    font-size:14px;
+    }
+        
+    .product-sales{
+    margin-top:6px;
+    font-size:14px;
+    color:#6ee7b7;
+    }
+        
+    .trending-badge{
+    background:#ff9900;
+    color:black;
+    font-weight:600;
+    padding:4px 10px;
+    border-radius:6px;
+    font-size:12px;
+    display:inline-block;
+    margin-bottom:10px;
+    }
+
+    .product-thumbs img{
+    cursor:pointer;
+    border:2px solid transparent;
+    transition:0.2s;
+    }
+        
+    .product-thumbs img:hover{
+    border:2px solid #ff9900;
+    }

@@ -1,0 +1,37 @@
+/* src/styles/orderSuccess.css */
+.order-success-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 80px); /* Adjust based on your navbar height */
+    width: 100%;
+    background-color: #0f172a; /* Dark background */
+    padding: 20px;
+  }
+  
+  .order-success-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background: #1c2532;
+    padding: 50px 40px;
+    border-radius: 12px;
+    max-width: 420px;
+    width: 100%;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+  }
+  
+  .order-success-icon { font-size: 60px; color: #22c55e; margin-bottom: 20px; }
+  .order-success-title { color: #fff; font-size: 28px; margin-bottom: 12px; }
+  .order-success-text { color: #aaa; margin-bottom: 20px; }
+  .order-success-meta { color: #888; font-size: 14px; margin-bottom: 6px; }
+  .order-success-btn { 
+    background: #ff9900; 
+    padding: 12px 30px; 
+    border-radius: 6px; 
+    color: #111; 
+    text-decoration: none; 
+    font-weight: 600;
+    margin-top: 20px;
+  }
