@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { Link } from "react-router-dom";
 
+// 💡 SENIOR TIP: Backend ka wahi URL use karein jo ngrok (Port 5000) mein hai
+const BASE_URL = "https://amalia-stolid-chelsey.ngrok-free.dev"; 
+
 const MyOrders = () => {
   const { user } = useAuth();
   const [orders, setOrders] = useState([]);
@@ -10,7 +13,15 @@ const MyOrders = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/orders/userorders/${user.id}`);
+        // ✅ FIX: Using BASE_URL and adding Ngrok Bypass Header
+        const response = await fetch(`${BASE_URL}/api/orders/userorders/${user.id}`, {
+          method: 'GET',
+          headers: {
+            "Content-Type": "application/json",
+            "ngrok-skip-browser-warning": "true" // Required for mobile devices
+          }
+        });
+
         const data = await response.json();
         if (data.success) {
           setOrders(data.orders);
@@ -23,7 +34,7 @@ const MyOrders = () => {
     };
 
     if (user?.id) fetchOrders();
-    else setLoading(false); // Safety check for logout
+    else setLoading(false); 
   }, [user]);
 
   const calculateDelivery = (orderDate) => {
@@ -32,10 +43,9 @@ const MyOrders = () => {
     return d.toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' });
   };
 
-  // 1. Better Loading State (using theme variables)
   if (loading) return (
     <div style={{ color: 'var(--color-text)', textAlign: 'center', marginTop: '100px', minHeight: '80vh' }}>
-      <div className="loader"></div> {/* If you have a loader CSS */}
+      <div className="loader"></div>
       <p>Loading your history...</p>
     </div>
   );
@@ -45,7 +55,7 @@ const MyOrders = () => {
       padding: "20px", 
       maxWidth: "800px", 
       margin: "auto", 
-      color: "var(--color-text)", // FIX: Uses theme text color
+      color: "var(--color-text)", 
       minHeight: '80vh' 
     }}>
       <div style={{ textAlign: 'center' }}>
@@ -59,7 +69,6 @@ const MyOrders = () => {
         </h2>
       </div>
       
-      {/* 2. FIX: Better Empty State */}
       {orders.length === 0 ? (
         <div style={{ textAlign: "center", marginTop: "50px" }}>
           <p style={{ color: "var(--color-text-muted)", fontSize: "1.2rem" }}>No orders found.</p>
@@ -76,7 +85,7 @@ const MyOrders = () => {
       ) : (
         orders.map((order) => (
           <div key={order._id} style={{ 
-            background: "var(--color-bg-elevated)", // FIX: Light in Light mode, Dark in Dark mode
+            background: "var(--color-bg-elevated)", 
             border: "1px solid var(--color-border)", 
             borderRadius: "12px", 
             padding: "20px", 
@@ -97,7 +106,7 @@ const MyOrders = () => {
                     alignItems: "center", 
                     gap: "15px", 
                     marginBottom: "10px", 
-                    background: "var(--color-bg)", // FIX: Secondary background
+                    background: "var(--color-bg)", 
                     padding: "12px", 
                     borderRadius: "8px",
                     border: "1px solid var(--color-border)"

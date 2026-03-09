@@ -3,37 +3,52 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 require('dotenv').config();
 
-// Import Routes (We will create these next)
 const authRoutes = require('./routes/authRoutes');
 const orderRoutes = require('./routes/orderRoutes');
+// const productRoutes = require('./routes/productRoutes'); // Agar file hai toh use karein
 
 const app = express();
 
-// 1. Better Middleware Configuration
 app.use(express.json()); 
 app.use(cors({
-    origin: 'http://localhost:5173', // Security: Only allow your frontend to connect
+    origin: '*', 
     credentials: true
 }));
 
-// 2. Optimized Database Connection
+// 1. Database Connection
 const connectDB = async () => {
     try {
         await mongoose.connect(process.env.MONGO_URI);
         console.log("✅ MongoDB Connected Successfully");
     } catch (err) {
         console.error("❌ MongoDB Connection Failed:", err.message);
-        process.exit(1); // Exit process with failure
+        process.exit(1);
     }
 };
 connectDB();
 
-// 3. API Routes
-// This keeps server.js clean. All auth logic stays in authRoutes.js
+// 🟢 STEP 1 FIX: Adding Home Route
+// Isse phone par "Cannot GET /" nahi aayega
+app.get('/', (req, res) => {
+    res.send("🚀 Backend Server is Running and Connected!");
+});
+
+// 2. API Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/orders', orderRoutes);
 
-// 4. Global Error Handler (Interviewer will love this)
+// Products API
+app.get('/api/products', async (req, res) => {
+    try {
+        const Product = require('./models/Product');
+        const products = await Product.find();
+        res.json(products);
+    } catch (err) {
+        res.status(500).json({ message: "Error fetching products" });
+    }
+});
+
+// 3. Global Error Handler
 app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).json({ message: 'Something went wrong on the server!' });
