@@ -1,138 +1,117 @@
-/*
-========================================================
-UPDATED LOGIN COMPONENT (MERN STACK VERSION)
-========================================================
-
-Explain that this component is now "Asynchronous." 
-Instead of checking a local string, it waits for a 
-response from the Express Server (Port 5000).
-========================================================
-*/
-
 import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 const Login = () => {
-  /*
-  ------------------------------------------------------
-  1. CONSUMING THE AUTH CONTEXT
-  ------------------------------------------------------
-  The login function here is now an 'async' function 
-  that returns a Promise (success or failure).
-  */
   const { login } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
 
-  /*
-  ------------------------------------------------------
-  2. STATE MANAGEMENT
-  ------------------------------------------------------
-  - email/password: Controlled inputs
-  - error: To display "User not found" or "Invalid Password"
-  - loading: (New) To disable button during API call
-  */
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  /*
-  ------------------------------------------------------
-  3. HANDLE FORM SUBMIT (The Logic)
-  ------------------------------------------------------
-  WHY ASYNC? Because fetching data from a database 
-  takes time. We must use 'await' to wait for the result.
-  */
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError("");      // Clear previous errors
-    setLoading(true);  // UI feedback: start loading
+    setError("");
+    setLoading(true);
 
-    // The 'login' function now sends a POST request to the backend
-    const result = await login(email, password);
+    try {
+      const result = await login(email, password);
 
-    if (result.success) {
-      // If backend says 200 OK, move to the homepage
-      navigate("/home");
-    } else {
-      // If backend says 400/500, show the specific error message
-      setError(result.message || "Invalid email or password");
+      if (result && result.success) {
+        // ✅ PRIORITIZE REDIRECTION:
+        // 1. Pehle check karo React Router ki state mein 'from' hai? (Fastest)
+        // 2. Phir check karo LocalStorage mein kuch bacha hai? (Fallback)
+        // 3. Kuch nahi toh Home '/' par bhej do.
+        
+        const routerStatePath = location.state?.from;
+        const storagePath = localStorage.getItem("redirectAfterLogin");
+        
+        const finalRedirect = routerStatePath || storagePath || "/";
+
+        console.log("Login Success! Redirecting to:", finalRedirect);
+
+        // Safai: Kaam hone ke baad storage mita do
+        localStorage.removeItem("redirectAfterLogin");
+
+        navigate(finalRedirect, { replace: true });
+      } else {
+        setError(result?.message || "Invalid email or password");
+      }
+    } catch (err) {
+      setError("Something went wrong. Please try again.");
+      console.error("Login Error:", err);
+    } finally {
+      setLoading(false);
     }
-
-    setLoading(false); // UI feedback: stop loading
   };
 
   return (
-    <div className="auth-page">
-      <div className="auth-card">
+    <div className="auth-page" style={{ padding: '20px' }}>
+      <div className="auth-card" style={{ maxWidth: '400px', margin: 'auto' }}>
         <h2>Login</h2>
-
-        {/* Dynamic Error Message Block */}
         {error && (
-          <div
-            style={{
-              color: "#b91c1c",
-              background: "#fef2f2",
-              padding: "10px",
-              borderRadius: "4px",
-              marginBottom: "1rem",
-              fontSize: "0.9rem",
-              border: "1px solid #fee2e2"
-            }}
-          >
+          <div className="error-box" style={{ 
+            color: '#b91c1c', 
+            background: '#fef2f2', 
+            padding: '10px', 
+            borderRadius: '4px', 
+            marginBottom: '15px',
+            fontSize: '0.9rem',
+            border: '1px solid #fee2e2'
+          }}>
             {error}
           </div>
         )}
-
+        
         <form onSubmit={handleSubmit}>
-          <label htmlFor="email" style={{ display: "block", marginBottom: "0.5rem", fontWeight: 500 }}>
-            Email
-          </label>
-          <input
-            id="email"
-            type="email"
-            autoComplete="username"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="auth-input"
-            disabled={loading} // Prevent typing during request
-            required
-          />
-
-          <label htmlFor="password" style={{ display: "block", marginBottom: "0.5rem", fontWeight: 500 }}>
-            Password
-          </label>
-          <input
-            id="password"
-            type="password"
-            autoComplete="current-password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="auth-input"
-            disabled={loading} // Prevent typing during request
-            required
-          />
-
-          <button
-            type="submit"
-            className="auth-btn"
+          <div className="form-group" style={{ marginBottom: '15px' }}>
+            <label style={{ display: 'block', marginBottom: '5px', color: 'white' }}>Email</label>
+            <input 
+              type="email" 
+              value={email} 
+              onChange={(e) => setEmail(e.target.value)} 
+              required 
+              className="auth-input"
+              placeholder="Enter your email"
+              style={{ width: '100%', padding: '10px', borderRadius: '4px', border: '1px solid #ccc' }}
+            />
+          </div>
+          <div className="form-group" style={{ marginBottom: '20px' }}>
+            <label style={{ display: 'block', marginBottom: '5px', color: 'white' }}>Password</label>
+            <input 
+              type="password" 
+              value={password} 
+              onChange={(e) => setPassword(e.target.value)} 
+              required 
+              className="auth-input"
+              placeholder="Enter your password"
+              style={{ width: '100%', padding: '10px', borderRadius: '4px', border: '1px solid #ccc' }}
+            />
+          </div>
+          <button 
+            type="submit" 
+            className="auth-btn" 
+            disabled={loading}
             style={{ 
-                marginTop: "0.5rem",
-                opacity: loading ? 0.7 : 1,
-                cursor: loading ? "not-allowed" : "pointer"
+              width: '100%', 
+              padding: '12px', 
+              background: '#007bff', 
+              color: 'white', 
+              border: 'none', 
+              borderRadius: '4px',
+              cursor: loading ? 'not-allowed' : 'pointer',
+              fontWeight: 'bold'
             }}
-            disabled={loading} // Prevent double-clicking
           >
             {loading ? "Verifying..." : "Login"}
           </button>
         </form>
-
-        <p style={{ marginTop: "1.5rem", textAlign: "center", fontSize: "0.95rem" }}>
-          Don&apos;t have an account?{" "}
-          <Link to="/signup" style={{ color: "var(--color-primary)", fontWeight: 600 }}>
-            Sign up
-          </Link>
+        
+        <p className="auth-footer" style={{ marginTop: '20px', textAlign: 'center', color: 'white' }}>
+          Don't have an account? <Link to="/signup" style={{ color: '#007bff', fontWeight: 'bold' }}>Sign up</Link>
         </p>
       </div>
     </div>

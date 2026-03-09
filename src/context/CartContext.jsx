@@ -1,35 +1,59 @@
-import { createContext, useContext, useState, useEffect, useCallback } from "react";
-import { useAuth } from "./AuthContext"; // AuthContext import karna zaroori hai
+import { createContext, useContext, useState, useEffect, useCallback, useRef } from "react";
+import { useAuth } from "./AuthContext";
 
 export const CartContext = createContext();
 
 export function CartProvider({ children }) {
-  const { user } = useAuth(); // Logged-in user ki details nikalna
+  const { user } = useAuth();
+  const [cart, setCart] = useState([]);
+  const isFirstRender = useRef(true);
 
-  // Dynamic key banana taaki har user ka cart alag rahe
   const getCartKey = useCallback(() => {
     return user ? `cart_${user.email}` : "cart_guest";
   }, [user]);
 
-  const [cart, setCart] = useState([]);
-
-  // 1. Jab user change ho (Login/Logout), naya cart load karein
+  // 1. Load and Merge Logic
   useEffect(() => {
-    const key = getCartKey();
-    const storedCart = localStorage.getItem(key);
-    if (storedCart) {
-      try {
-        setCart(JSON.parse(storedCart));
-      } catch (e) {
-        setCart([]);
+    const guestKey = "cart_guest";
+    const userKey = user ? `cart_${user.email}` : null;
+    
+    const storedGuestCart = JSON.parse(localStorage.getItem(guestKey) || "[]");
+
+    if (user) {
+      const storedUserCart = JSON.parse(localStorage.getItem(userKey) || "[]");
+      
+      if (storedGuestCart.length > 0) {
+        // ✅ GUEST CART KO USER CART MEIN MERGE KARO
+        // Hum guest cart ke items ko user cart mein add kar rahe hain (duplicates handle karke)
+        const mergedCart = [...storedUserCart];
+        storedGuestCart.forEach(gItem => {
+          const exists = mergedCart.find(uItem => uItem.id === gItem.id);
+          if (exists) {
+            exists.quantity += gItem.quantity;
+          } else {
+            mergedCart.push(gItem);
+          }
+        });
+
+        setCart(mergedCart);
+        // Guest cart saaf kar do kyunki ab wo user mein merge ho gaya hai
+        localStorage.removeItem(guestKey);
+      } else {
+        setCart(storedUserCart);
       }
     } else {
-      setCart([]);
+      // Agar logout hai toh guest cart load karo
+      setCart(storedGuestCart);
     }
-  }, [user, getCartKey]);
+  }, [user]); // Sirf login/logout par trigger hoga
 
-  // 2. Cart state change hote hi use correct key mein save karein
+  // 2. Save Logic
   useEffect(() => {
+    // Pehli baar render par save na karein varna initial state [] save ho jayegi
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
     const key = getCartKey();
     localStorage.setItem(key, JSON.stringify(cart));
   }, [cart, getCartKey]);

@@ -20,118 +20,118 @@ const productsData = [
       title: "Premium Leather Analog Watch",
       price: 79.99,
       category: "fashion",
-      image: "https://danielklein.in/cdn/shop/files/DK.1.13819-4.jpg?v=1754031358",
-      image_1: "https://img.tatacliq.com/images/i21//437Wx649H/MP000000024725668_437Wx649H_202412151852481.jpeg",
-      image_2: "https://img.tatacliq.com/images/i24//437Wx649H/MP000000017063194_437Wx649H_202506111611592.jpeg",
+      image: "https://m.media-amazon.com/images/I/71YyP9f2S1L._SL1500_.jpg",
+      image_1: "https://m.media-amazon.com/images/I/718t8u7WJ3L._SL1500_.jpg",
+      image_2: "https://m.media-amazon.com/images/I/81mD9U75pEL._SL1500_.jpg",
       rating: 4.5,
       reviews: 870,
       lastMonthSales: 210,
       trending: true,
-      description: ["Classic analog watch with premium leather strap.", "Elegant design suitable for formal and casual wear.", "Durable stainless steel body with scratch resistant glass."]
+      description: ["Classic analog watch with premium leather strap.", "Elegant design suitable for formal and casual wear.", "Durable stainless steel body."]
     },
     {
       title: "Portable Bluetooth Speaker",
       price: 29.99,
       category: "electronics",
-      image: "https://images.ctfassets.net/javen7msabdh/2K1Oiw3mRsG4NCHY11WvXW/67793ea67b77e5ff65b59a163884a383/emberton-iii-front-desktop-1_x2.jpg?w=1920&fm=avif&q=100",
-      image_1: "https://m.media-amazon.com/images/I/31RnuvCDlhL._SX300_SY300_QL70_FMwebp_.jpg",
-      image_2: "https://m.media-amazon.com/images/I/616WErH3zJL._SL1500_.jpg",
+      image: "https://m.media-amazon.com/images/I/616WErH3zJL._SL1500_.jpg",
+      image_1: "https://m.media-amazon.com/images/I/71Xm8-22hrL._SL1500_.jpg",
+      image_2: "https://m.media-amazon.com/images/I/71aQyQDsvwL._SL1500_.jpg",
       rating: 4.4,
       reviews: 620,
       lastMonthSales: 190,
       trending: false,
-      description: ["Portable speaker with powerful stereo sound.", "Bluetooth connectivity with stable signal range.", "Compact body ideal for travel and outdoor use."]
+      description: ["Portable speaker with powerful stereo sound.", "Bluetooth connectivity with stable signal range."]
     },
     {
       title: "Fitness Smartwatch",
       price: 89.99,
       category: "electronics",
-      image: "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcQ8qC90r6zXB9_z-Xf5VN571MqWJmvgHKM_il2PYSalx7YQZjRgLGrp0qA2nd2u_MxLBUuAsLDGfK0p67uJawI_3K5F438H3ySvXdrTV42YgxYhrOdzwU7hj-uf",
-      image_1: "https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcT6-cixmOIS5Bv0z1-0bwqAlskjnOe7E4E4mzYvbVd8m3nwxj_W3jZMd5DnaYfTljKr9-eHnfJkLrrNyLe3QAz9ZXAJg7cRvDwZP0k-AIlWMgzOk5_facKy6xtY",
-      image_2: "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcS7rs8Fj1A1x0lkp8IHAQ7YF6AhtNNLOGBA4pAhWc7IJpuMFbT-YmuoWV8z7X3teXDwvZafMMKPhTnqP-28hzT-ErPkXQAWzF-EGYXMvxY641seA-63xLZZRYA",
+      image: "https://m.media-amazon.com/images/I/61ZjlBOp+rL._SL1500_.jpg",
+      image_1: "https://m.media-amazon.com/images/I/61SSVxTSs3L._SL1500_.jpg",
+      image_2: "https://m.media-amazon.com/images/I/71L6-5S6Z9L._SL1500_.jpg",
       rating: 4.7,
       reviews: 1580,
       lastMonthSales: 430,
       trending: true,
-      description: ["Track steps, heart rate and calories burned.", "Water resistant design for workouts.", "Smart notifications for calls and messages."]
+      description: ["Track steps, heart rate and calories burned.", "Water resistant design for workouts."]
     },
     {
       title: "Minimalist Desk Lamp",
       price: 24.99,
       category: "home",
-      image: "https://m.media-amazon.com/images/I/31TC6Ef-38L._SY445_SX342_QL70_FMwebp_.jpg",
-      image_1: "https://m.media-amazon.com/images/I/619QU1Q3zUL._SL1500_.jpg",
-      image_2: "https://m.media-amazon.com/images/I/71OY6HtDEnL._SL1500_.jpg",
+      image: "https://m.media-amazon.com/images/I/619QU1Q3zUL._SL1500_.jpg",
+      image_1: "https://m.media-amazon.com/images/I/71OY6HtDEnL._SL1500_.jpg",
+      image_2: "https://m.media-amazon.com/images/I/61S8n0R1I0L._SL1500_.jpg",
       rating: 4.3,
       reviews: 340,
       lastMonthSales: 120,
       trending: false,
-      description: ["Adjustable brightness LED desk lamp.", "Modern minimal design for workspace.", "Energy efficient lighting with long lifespan."]
+      description: ["Adjustable brightness LED desk lamp.", "Modern minimal design for workspace."]
     },
     {
       title: "Laptop Travel Backpack",
       price: 39.99,
       category: "fashion",
-      image: "https://eumeworld.com/cdn/shop/files/Artboard_37_948bf55b-b50f-471b-bf5f-a46caadc8d44.jpg?v=1770361416&width=2048",
-      image_1: "https://eumeworld.com/cdn/shop/files/2_f2d8eb62-350b-4c8f-850b-d4dd9f48bf48.jpg?v=1770361416&width=2048",
-      image_2: "https://eumeworld.com/cdn/shop/files/8_d689121b-0a18-4a22-a057-a3414de34356.jpg?v=1770361416&width=2048",
+      image: "https://m.media-amazon.com/images/I/817I+y8S38L._SL1500_.jpg",
+      image_1: "https://m.media-amazon.com/images/I/81xU+7VpW2L._SL1500_.jpg",
+      image_2: "https://m.media-amazon.com/images/I/91tV5xL1+EL._SL1500_.jpg",
       rating: 4.5,
       reviews: 720,
       lastMonthSales: 260,
       trending: true,
-      description: ["Padded laptop compartment with shock protection.", "Multiple pockets for organized storage.", "Comfortable straps for travel and daily commute."]
+      description: ["Padded laptop compartment.", "Multiple pockets for organized storage."]
     },
     {
       title: "Ceramic Coffee Mug",
       price: 12.99,
       category: "home",
-      image: "https://thomasgoode.in/cdn/shop/files/1_85ca8bf0-3e42-40ff-acaf-480496f06138.jpg?v=1754916316&width=3000",
-      image_1: "https://thomasgoode.in/cdn/shop/files/2_5f5557c8-965a-4bef-84f3-12c25094b355.jpg?v=1754916316&width=3000",
-      image_2: "https://thomasgoode.in/cdn/shop/files/3_87f63dcc-5168-480c-82f7-3af0a44fe105.jpg?v=1754916316&width=3000",
+      image: "https://m.media-amazon.com/images/I/51fX166fP+L._SL1000_.jpg",
+      image_1: "https://m.media-amazon.com/images/I/51pI-pE8fWL._SL1000_.jpg",
+      image_2: "https://m.media-amazon.com/images/I/61G+p87P5KL._SL1200_.jpg",
       rating: 4.4,
       reviews: 410,
       lastMonthSales: 150,
       trending: false,
-      description: ["High quality ceramic mug for coffee lovers.", "Comfortable grip with smooth finish.", "Dishwasher safe and durable design."]
+      description: ["High quality ceramic mug for coffee lovers."]
     },
     {
       title: "Aluminum Laptop Stand",
       price: 34.99,
       category: "electronics",
-      image: "https://m.media-amazon.com/images/I/51tmSHBx7PL._SY300_SX300_QL70_FMwebp_.jpg",
-      image_1: "https://m.media-amazon.com/images/I/71aQyQDsvwL._SL1500_.jpg",
-      image_2: "https://m.media-amazon.com/images/I/71xz8-22hrL._SL1500_.jpg",
+      image: "https://m.media-amazon.com/images/I/71aQyQDsvwL._SL1500_.jpg",
+      image_1: "https://m.media-amazon.com/images/I/71xz8-22hrL._SL1500_.jpg",
+      image_2: "https://m.media-amazon.com/images/I/619v7mF7xFL._SL1500_.jpg",
       rating: 4.6,
       reviews: 880,
       lastMonthSales: 240,
       trending: false,
-      description: ["Ergonomic laptop stand improves posture.", "Aluminum build for durability.", "Improves airflow to prevent overheating."]
+      description: ["Ergonomic laptop stand improves posture.", "Aluminum build for durability."]
     },
     {
       title: "Noise Cancelling Headphones",
       price: 129.99,
       category: "electronics",
-      image: "https://m.media-amazon.com/images/I/31ElPtQTN9L._SY300_SX300_QL70_FMwebp_.jpg",
-      image_1: "https://m.media-amazon.com/images/I/61MRa0+nUtL._SX522_.jpg",
-      image_2: "https://m.media-amazon.com/images/I/612-Tfh2CgL._SL1500_.jpg",
+      image: "https://m.media-amazon.com/images/I/61MRa0+nUtL._SX522_.jpg",
+      image_1: "https://m.media-amazon.com/images/I/612-Tfh2CgL._SL1500_.jpg",
+      image_2: "https://m.media-amazon.com/images/I/516mD16+v6L._SL1200_.jpg",
       rating: 4.7,
       reviews: 1420,
       lastMonthSales: 370,
       trending: true,
-      description: ["Active noise cancellation for immersive audio.", "Comfortable ear cushions for long listening sessions.", "High quality sound with deep bass."]
+      description: ["Active noise cancellation for immersive audio."]
     },
     {
       title: "Modern Canvas Wall Art",
       price: 42.99,
       category: "home",
-      image: "https://www.dekorcompany.com/cdn/shop/products/Orangetree-1_a.jpg?v=1633502966",
-      image_1: "https://www.dekorcompany.com/cdn/shop/products/Orangetree-1_c.jpg?v=1633502966",
-      image_2: "https://www.dekorcompany.com/cdn/shop/products/Orangetree-1_b.jpg?v=1633502966",
+      image: "https://m.media-amazon.com/images/I/81-067E6V7L._SL1500_.jpg",
+      image_1: "https://m.media-amazon.com/images/I/81WlK66pYWL._SL1500_.jpg",
+      image_2: "https://m.media-amazon.com/images/I/81LCHr7pWKL._SL1500_.jpg",
       rating: 4.4,
       reviews: 280,
       lastMonthSales: 90,
       trending: false,
-      description: ["Stylish canvas art for modern interiors.", "High resolution printed artwork.", "Perfect for living room or office decoration."]
+      description: ["Stylish canvas art for modern interiors."]
     },
     {
       title: "LED Digital Alarm Clock",
@@ -139,168 +139,168 @@ const productsData = [
       category: "home",
       image: "https://m.media-amazon.com/images/I/61Yrl84Pn-L._SL1500_.jpg",
       image_1: "https://m.media-amazon.com/images/I/71dOAj166SL._SL1500_.jpg",
-      image_2: "https://m.media-amazon.com/images/I/71dOAj166SL._SL1500_.jpg",
+      image_2: "https://m.media-amazon.com/images/I/61u9o3I7-vL._SL1500_.jpg",
       rating: 4.2,
       reviews: 320,
       lastMonthSales: 110,
       trending: false,
-      description: ["Bright LED display for easy viewing.", "Snooze feature for better mornings.", "Compact bedside design."]
+      description: ["Bright LED display for easy viewing."]
     },
     {
       title: "Reusable Water Bottle",
       price: 16.99,
       category: "sports",
-      image: "https://laceupclub.com/cdn/shop/files/http___static.theiconic.com.au_p_stanley-4414-5040562-1.webp?v=1763944847&width=493",
-      image_1: "https://laceupclub.com/cdn/shop/files/http___static.theiconic.com.au_p_stanley-4423-5040562-2.webp?v=1763944847&width=493",
-      image_2: "https://laceupclub.com/cdn/shop/files/http___static.theiconic.com.au_p_stanley-4420-5040562-4.webp?v=1763944847&width=493",
+      image: "https://m.media-amazon.com/images/I/61pD7Uv5mDL._SL1500_.jpg",
+      image_1: "https://m.media-amazon.com/images/I/61S75A6GjmL._SL1500_.jpg",
+      image_2: "https://m.media-amazon.com/images/I/61U0T2m990L._SL1500_.jpg",
       rating: 4.5,
       reviews: 540,
       lastMonthSales: 220,
       trending: true,
-      description: ["BPA free eco friendly bottle.", "Leak proof lid for safe travel.", "Ideal for gym and outdoor use."]
+      description: ["BPA free eco friendly bottle."]
     },
     {
       title: "Travel Coffee Mug",
       price: 22.99,
       category: "home",
-      image: "https://m.media-amazon.com/images/I/61EIySJN6lL._SL1500_.jpg",
-      image_1: "https://m.media-amazon.com/images/I/61ykEJftQnL._SL1024_.jpg",
-      image_2: "https://m.media-amazon.com/images/I/616+KlaugxL._SL1000_.jpg",
+      image: "https://m.media-amazon.com/images/I/61ykEJftQnL._SL1024_.jpg",
+      image_1: "https://m.media-amazon.com/images/I/616+KlaugxL._SL1000_.jpg",
+      image_2: "https://m.media-amazon.com/images/I/51WpS28YhML._SL1000_.jpg",
       rating: 4.6,
       reviews: 460,
       lastMonthSales: 160,
       trending: false,
-      description: ["Thermal insulation keeps drinks hot.", "Spill resistant lid design.", "Perfect for commuting and travel."]
+      description: ["Thermal insulation keeps drinks hot."]
     },
     {
       title: "Wireless Ergonomic Mouse",
       price: 19.99,
       category: "electronics",
-      image: "https://m.media-amazon.com/images/I/31rjGrfbDFL._SY300_SX300_QL70_FMwebp_.jpg",
-      image_1: "https://m.media-amazon.com/images/I/810kUHKSunL._SL1500_.jpg",
-      image_2: "https://m.media-amazon.com/images/I/71KuXWI0KZL._SL1500_.jpg",
+      image: "https://m.media-amazon.com/images/I/810kUHKSunL._SL1500_.jpg",
+      image_1: "https://m.media-amazon.com/images/I/71KuXWI0KZL._SL1500_.jpg",
+      image_2: "https://m.media-amazon.com/images/I/61M6Y2U6pVL._SL1500_.jpg",
       rating: 4.5,
       reviews: 790,
       lastMonthSales: 270,
       trending: false,
-      description: ["Comfortable ergonomic design.", "Stable wireless connectivity.", "Silent click technology."]
+      description: ["Comfortable ergonomic design."]
     },
     {
       title: "Personal Development Notebook",
       price: 9.99,
       category: "books",
-      image: "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcRTtfNufAKEw8Zl1VwNep02JS9EvVLFrxOzcHddhw7vkd6w3UXXpDQJCInuOqnyc0ZKncZQXvrPezIz6jrfRtNio4qwW4sWeu8-ZoujKl5vjVZNJgvDaPie",
-      image_1: "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcQhAF_w2OfCh1C4rv9gFhD5rurvm-t0Qsvx5apsQ5nWe6F4ckyFjqGExzo0Qv3V74B3Gb94ttgycdwr60QbO8UtkjRmmI1pG9evQT-l2Br3_7JBkiYA-4S_gQ",
-      image_2: "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcQ2tKSrwydkwcljotnHuhYUw9vuVj_7Urh2HbGn3OfOqRFRhGJXVc9SeJRgOy1YeabY9VYZNSfZ_JbA5wsRRqbzHKyXRGlGNvoFrJa0-K2bKw5WC0hjNG0zfQ",
+      image: "https://m.media-amazon.com/images/I/71X1U6m-zPL._SL1500_.jpg",
+      image_1: "https://m.media-amazon.com/images/I/71m6k4U6t0L._SL1500_.jpg",
+      image_2: "https://m.media-amazon.com/images/I/71N-E6G5zNL._SL1500_.jpg",
       rating: 4.3,
       reviews: 210,
       lastMonthSales: 80,
       trending: false,
-      description: ["Premium quality paper.", "Perfect for journaling.", "Minimal design layout."]
+      description: ["Premium quality paper for journaling."]
     },
     {
       title: "Thermal Stainless Bottle",
       price: 21.99,
       category: "sports",
-      image: "https://cdn.mohd.it/cache/image/format=webp/media/catalog/product/s/k/sky-water-bottle-stainless-steel.jpg",
-      image_1: "https://cdn.mohd.it/cache/image/format=webp/media/catalog/product/s/k/sky-water-bottle-acciaio.jpg",
-      image_2: "https://cdn.mohd.it/cache/image/format=webp/media/catalog/product/s/k/sky-water-bottle-acciaiojpg.jpg",
+      image: "https://m.media-amazon.com/images/I/51H0vS2-M4L._SL1500_.jpg",
+      image_1: "https://m.media-amazon.com/images/I/51h68V0iTPL._SL1500_.jpg",
+      image_2: "https://m.media-amazon.com/images/I/51yM9W8C9KL._SL1500_.jpg",
       rating: 4.6,
       reviews: 410,
       lastMonthSales: 140,
       trending: false,
-      description: ["Double wall insulation.", "Durable stainless steel body.", "Maintains hot or cold temperature."]
+      description: ["Double wall insulation stainless steel."]
     },
     {
       title: "Yoga Exercise Mat",
       price: 29.99,
       category: "sports",
-      image: "https://m.media-amazon.com/images/I/611HCqROj0L._SL1080_.jpg",
-      image_1: "https://m.media-amazon.com/images/I/71bKsC9C4SL._SL1080_.jpg",
-      image_2: "https://m.media-amazon.com/images/I/61CzyqVS3GL._SL1080_.jpg",
+      image: "https://m.media-amazon.com/images/I/71bKsC9C4SL._SL1080_.jpg",
+      image_1: "https://m.media-amazon.com/images/I/61CzyqVS3GL._SL1080_.jpg",
+      image_2: "https://m.media-amazon.com/images/I/611HCqROj0L._SL1080_.jpg",
       rating: 4.7,
       reviews: 630,
       lastMonthSales: 260,
       trending: true,
-      description: ["Non slip surface grip.", "High density cushioning.", "Perfect for yoga and workouts."]
+      description: ["Non slip surface high density cushioning."]
     },
     {
       title: "Soft Cotton Blanket",
       price: 34.99,
       category: "home",
-      image: "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcRRCr1J4dfie44MWt_DS91MobxNioi6QJ-MTCt7QMPFOJkDC83vmTuiRnS7Ih2rfmLwe02TMj3qivatNCAuZtU1cYoYp7jV6jd8aetd75oTnV0BaobcwOAZ",
-      image_1: "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcRtyeHSYJzpRW1CbCKE3zQLngLV8hBYFkcCoYaCKeUwYHN092KlXP7ogETZY4j8c-5Y8XwSKdK_WTJNViSEcS9cku8Pn0rgCGzchRRsaCPQWCWn7VKI30sA5Q",
-      image_2: "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcRtyeHSYJzpRW1CbCKE3zQLngLV8hBYFkcCoYaCKeUwYHN092KlXP7ogETZY4j8c-5Y8XwSKdK_WTJNViSEcS9cku8Pn0rgCGzchRRsaCPQWCWn7VKI30sA5Q",
+      image: "https://m.media-amazon.com/images/I/81R56-4O5vL._SL1500_.jpg",
+      image_1: "https://m.media-amazon.com/images/I/81C6N2K6N3L._SL1500_.jpg",
+      image_2: "https://m.media-amazon.com/images/I/81L-e8N6N7L._SL1500_.jpg",
       rating: 4.5,
       reviews: 380,
       lastMonthSales: 120,
       trending: false,
-      description: ["Soft breathable cotton fabric.", "Comfortable lightweight design.", "Ideal for sofa or bed."]
+      description: ["Soft breathable cotton fabric."]
     },
     {
       title: "Slim Leather Wallet",
       price: 19.99,
       category: "fashion",
-      image: "https://eumeworld.com/cdn/shop/files/NOVA-CARDHOLDER-RUSTIC-BROWN-1.jpg?v=1740401777&width=990",
-      image_1: "https://eumeworld.com/cdn/shop/files/EUME01627.jpg?v=1740401777&width=2048",
-      image_2: "https://eumeworld.com/cdn/shop/files/NOVA-CARDHOLDER-RUSTIC-BROWN-2.jpg?v=1740401777&width=2048",
+      image: "https://m.media-amazon.com/images/I/81pYV6k9NKL._SL1500_.jpg",
+      image_1: "https://m.media-amazon.com/images/I/81xU+7VpW2L._SL1500_.jpg",
+      image_2: "https://m.media-amazon.com/images/I/91tV5xL1+EL._SL1500_.jpg",
       rating: 4.6,
       reviews: 510,
       lastMonthSales: 190,
       trending: false,
-      description: ["Slim minimalist design.", "Multiple card slots.", "Premium leather material."]
+      description: ["Slim minimalist premium leather design."]
     },
     {
       title: "Indoor Desk Plant",
       price: 15.99,
       category: "home",
-      image: "https://cdn.shopify.com/s/files/1/0775/5287/7809/files/00608401_thematic-jpg.webp?v=1770794609",
-      image_1: "https://cdn.shopify.com/s/files/1/0775/5287/7809/files/00608401_01.webp?v=1770794609",
-      image_2: "https://cdn.shopify.com/s/files/1/0775/5287/7809/files/00608401_01.webp?v=1770794609",
+      image: "https://m.media-amazon.com/images/I/61X-p8+mKQL._SL1000_.jpg",
+      image_1: "https://m.media-amazon.com/images/I/61j+u8+kKXL._SL1000_.jpg",
+      image_2: "https://m.media-amazon.com/images/I/71N-E6G5zNL._SL1500_.jpg",
       rating: 4.4,
       reviews: 290,
       lastMonthSales: 130,
       trending: false,
-      description: ["Low maintenance plant.", "Enhances workspace decor.", "Natural indoor greenery."]
+      description: ["Low maintenance natural indoor greenery."]
     },
     {
       title: "Mechanical RGB Keyboard",
       price: 74.99,
       category: "electronics",
-      image: "https://kreo-tech.com/cdn/shop/files/Frame_1000007102.png?v=1771248201&width=1000",
-      image_1: "https://kreo-tech.com/cdn/shop/files/Frame_1000007102.png?v=1771248201&width=1000",
-      image_2: "https://kreo-tech.com/cdn/shop/files/Frame_1000006957.png?v=1771248201&width=1000",
+      image: "https://m.media-amazon.com/images/I/71f66p89mTL._SL1500_.jpg",
+      image_1: "https://m.media-amazon.com/images/I/71N-E6G5zNL._SL1500_.jpg",
+      image_2: "https://m.media-amazon.com/images/I/81W3RHyRRlL._SL1500_.jpg",
       rating: 4.7,
       reviews: 1100,
       lastMonthSales: 300,
       trending: true,
-      description: ["Mechanical tactile switches.", "Customizable RGB lighting.", "Perfect for gaming setups."]
+      description: ["Customizable RGB mechanical keyboard."]
     },
     {
       title: "Gaming Mouse Pad XL",
       price: 17.99,
       category: "electronics",
-      image: "https://image.benq.com/is/image/benqco/g-sr-se-2022-rouge-03-1?$ResponsivePreset$&fmt=png-alpha",
-      image_1: "https://image.benq.com/is/image/benqco/g-sr-se-2022-rouge-02-1?$ResponsivePreset$&fmt=png-alpha",
-      image_2: "https://image.benq.com/is/image/benqco/G-SR-SE-ZC05--_01?$ResponsivePreset$&fmt=png-alpha",
+      image: "https://m.media-amazon.com/images/I/61N+x-VqVXL._SL1500_.jpg",
+      image_1: "https://m.media-amazon.com/images/I/71Xm8-22hrL._SL1500_.jpg",
+      image_2: "https://m.media-amazon.com/images/I/71aQyQDsvwL._SL1500_.jpg",
       rating: 4.5,
       reviews: 430,
       lastMonthSales: 170,
       trending: false,
-      description: ["Large surface gaming pad.", "Anti slip rubber base.", "Improves mouse accuracy."]
+      description: ["Large anti slip rubber base gaming pad."]
     },
     {
       title: "Fast USB-C Charger",
       price: 24.99,
       category: "electronics",
-      image: "https://www.capesindia.com/cdn/shop/files/cable_hero_shot.jpg?v=1768291529&width=800",
-      image_1: "https://www.capesindia.com/cdn/shop/files/4in1_macbook_charging_93670abc-7f89-4a71-b668-999ced77d17a.jpg?v=1768291529&width=800",
-      image_2: "https://www.capesindia.com/cdn/shop/files/4in1_e-marker_chip.jpg?v=1768291529&width=800",
+      image: "https://m.media-amazon.com/images/I/51fG+z8M9OL._SL1500_.jpg",
+      image_1: "https://m.media-amazon.com/images/I/61G+p87P5KL._SL1200_.jpg",
+      image_2: "https://m.media-amazon.com/images/I/616+KlaugxL._SL1000_.jpg",
       rating: 4.4,
       reviews: 540,
       lastMonthSales: 200,
       trending: false,
-      description: ["Fast charging technology.", "Compact travel design.", "Compatible with multiple devices."]
+      description: ["Fast charging compact travel design."]
     },
     {
       title: "Wooden Desk Organizer",
@@ -313,51 +313,46 @@ const productsData = [
       reviews: 250,
       lastMonthSales: 100,
       trending: false,
-      description: ["Organizes desk accessories.", "Premium wooden finish.", "Compact modern design."]
+      description: ["Premium wooden finish desk organizer."]
     },
     {
       title: "Adjustable Phone Stand",
       price: 11.99,
       category: "electronics",
-      image: "https://chemistors.com/cdn/shop/files/1_9fb8e9a2-7d6d-4102-b205-686d8890d037.jpg?v=1744281785&width=1000",
-      image_1: "https://chemistors.com/cdn/shop/files/4_1452ae6c-26c4-4058-9afd-20f7a4f76f02.jpg?v=1744284349&width=1000",
-      image_2: "https://chemistors.com/cdn/shop/files/8_f07ac886-128b-4d52-8fe6-8a5b5564b24a.jpg?v=1744284349&width=1000",
+      image: "https://m.media-amazon.com/images/I/61vG+z8M9OL._SL1500_.jpg",
+      image_1: "https://m.media-amazon.com/images/I/61G+p87P5KL._SL1200_.jpg",
+      image_2: "https://m.media-amazon.com/images/I/616+KlaugxL._SL1000_.jpg",
       rating: 4.4,
       reviews: 380,
       lastMonthSales: 140,
       trending: false,
-      description: ["Adjustable viewing angle.", "Foldable portable design.", "Ideal for desk usage."]
+      description: ["Foldable portable adjustable viewing angle."]
     }
 ];
 
 const seedDB = async () => {
     try {
-      // 1. Connection settings optimize karien
       await mongoose.connect(process.env.MONGO_URI);
       console.log("✅ MongoDB connected for seeding...");
   
-      // 2. Purana data saaf karein
       const deleted = await Product.deleteMany({});
       console.log(`🧹 Old products cleared (${deleted.deletedCount} items)...`);
   
-      // 3. Data format karein (Cleaner mapping)
       const formattedData = productsData.map(({ description, ...rest }) => ({
         ...rest,
         description: Array.isArray(description) ? description.join(" ") : description
       }));
   
-      // 4. Bulk Insert
       await Product.insertMany(formattedData);
-      console.log("🚀 All products successfully uploaded to MongoDB!");
+      console.log("🚀 All 25 products with 3 images each successfully uploaded!");
   
     } catch (err) {
       console.error("❌ Error seeding data:", err.message);
     } finally {
-      // 5. Connection hamesha close karein chahe error aaye ya na aaye
       await mongoose.connection.close();
       console.log("🔌 MongoDB connection closed.");
       process.exit();
     }
-  };
-  
-  seedDB();
+};
+
+seedDB();

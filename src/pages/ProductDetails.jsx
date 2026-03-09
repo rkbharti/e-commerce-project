@@ -1,35 +1,34 @@
 import React, { useState, useEffect } from "react"; 
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom"; 
 import { useCart } from "../context/CartContext";
+import { useAuth } from "../context/AuthContext";
 
-// Backend URL (Ngrok)
 const BASE_URL = "https://amalia-stolid-chelsey.ngrok-free.dev";
+const PLACEHOLDER_IMG = "https://via.placeholder.com/400?text=No+Image+Available";
 
 function ProductDetails() {
-  const { id } = useParams(); // URL se MongoDB _id le raha hai
+  const { id } = useParams();
   const { addToCart } = useCart();
+  const { user } = useAuth();
   const navigate = useNavigate();
 
-  // States
   const [product, setProduct] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // 1. Database se single product fetch karne ka logic
   useEffect(() => {
+    window.scrollTo(0, 0);
     const fetchProductDetails = async () => {
       setLoading(true);
       try {
         const response = await fetch(`${BASE_URL}/api/products/${id}`, {
           headers: { "ngrok-skip-browser-warning": "true" }
         });
-
-        if (!response.ok) throw new Error("Product dhoondne mein dikkat hui!");
-
+        if (!response.ok) throw new Error("Product fetch failed!");
         const data = await response.json();
         setProduct(data);
-        setSelectedImage(data.image); // Initial main image set kar rahe hain
+        setSelectedImage(data.image); 
         setError(null);
       } catch (err) {
         console.error("Fetch Error:", err);
@@ -38,106 +37,81 @@ function ProductDetails() {
         setLoading(false);
       }
     };
-
     fetchProductDetails();
   }, [id]);
 
-  // Loading State
-  if (loading) return <h2 style={{ padding: "100px", color: "white", textAlign: "center" }}>Loading Product Details...</h2>;
+  // ✅ Fix: Redirection Logic with dual safety
+  const handleProceedToCheckout = () => {
+    if (product) {
+      addToCart(product);
+      
+      if (!user) {
+        // 1. Storage mein save karo (Backup)
+        localStorage.setItem("redirectAfterLogin", "/checkout");
+        
+        // 2. React Router State mein bhejo (Primary)
+        navigate("/login", { state: { from: "/checkout" } });
+      } else {
+        navigate("/checkout");
+      }
+    }
+  };
 
-  // Error State
-  if (error || !product) {
-    return <h2 style={{ padding: "100px", color: "white", textAlign: "center" }}>{error || "Product not found"}</h2>;
-  }
+  if (loading) return <h2 className="loading-text" style={{color:'white', textAlign:'center', marginTop:'50px'}}>Loading Product Details...</h2>;
+  if (error || !product) return <h2 className="error-text" style={{color:'white', textAlign:'center', marginTop:'50px'}}>{error || "Product not found"}</h2>;
 
-  // ⭐ Star rating function
   const renderStars = (rating = 0) => {
     const fullStars = Math.floor(rating);
-    const emptyStars = 5 - fullStars;
     return (
-      <>
-        {"★".repeat(fullStars)}
-        {"☆".repeat(emptyStars)}
-      </>
+      <span style={{ color: "#f1c40f" }}>
+        {"★".repeat(fullStars)}{"☆".repeat(5 - fullStars)}
+      </span>
     );
   };
 
   return (
     <div className="product-page">
       <div className="product-container">
-        
-        {/* ---------------- THUMBNAIL IMAGES ---------------- */}
         <div className="product-thumbs">
-          {/* Main Image Thumbnail */}
-          <img
-            src={product.image}
-            alt="thumb"
-            className={selectedImage === product.image ? "active-thumb" : ""}
-            onClick={() => setSelectedImage(product.image)}
-          />
-          {/* Extra Images (Agar database mein hain) */}
-          {product.image_1 && (
+          {[product.image, product.image_1, product.image_2].filter(Boolean).map((img, idx) => (
             <img
-              src={product.image_1}
-              alt="thumb"
-              className={selectedImage === product.image_1 ? "active-thumb" : ""}
-              onClick={() => setSelectedImage(product.image_1)}
+              key={idx}
+              src={img || PLACEHOLDER_IMG}
+              alt={`thumb-${idx}`}
+              className={selectedImage === img ? "active-thumb" : ""}
+              onClick={() => setSelectedImage(img)}
+              onError={(e) => { e.target.src = PLACEHOLDER_IMG }}
             />
-          )}
-          {product.image_2 && (
-            <img
-              src={product.image_2}
-              alt="thumb"
-              className={selectedImage === product.image_2 ? "active-thumb" : ""}
-              onClick={() => setSelectedImage(product.image_2)}
-            />
-          )}
+          ))}
         </div>
 
-        {/* ---------------- MAIN PRODUCT IMAGE ---------------- */}
         <div className="product-main-image">
-          <img src={selectedImage} alt={product.title} />
+          <img 
+            src={selectedImage || PLACEHOLDER_IMG} 
+            alt={product.title} 
+            onError={(e) => { e.target.src = PLACEHOLDER_IMG }}
+          />
         </div>
 
-        {/* ---------------- PRODUCT INFO ---------------- */}
         <div className="product-info">
           {product.trending && <span className="trending-badge">🔥 Trending</span>}
-
           <h1 className="product-title">{product.title}</h1>
-
           <div className="product-rating">
             <span className="stars">{renderStars(product.rating)}</span>
             <span className="review-count">({product.reviews || 0} reviews)</span>
           </div>
-
-          <div className="product-price">
-            ${product.price?.toFixed(2)}
-          </div>
-
-          <div className="product-sales">
-            {product.lastMonthSales || 0} people bought this month
-          </div>
-
-          <p className="product-description">{product.description}</p>
+          <div className="product-price">${product.price?.toFixed(2)}</div>
+          <p className="product-description">
+            {product.description || "No description available for this product."}
+          </p>
         </div>
 
-        {/* ---------------- BUY BOX ---------------- */}
         <div className="buy-box">
           <div className="buy-price">${product.price?.toFixed(2)}</div>
           <p className="stock-text" style={{ color: "#00c853" }}>In Stock</p>
-
-          <button className="buy-btn" onClick={() => addToCart(product)}>
-            Add to Cart
-          </button>
-
-          <button className="cart-btn" onClick={() => {
-              addToCart(product);
-              navigate("/cart");
-            }}>
-            Buy Now
-          </button>
+          <button className="buy-btn" onClick={handleProceedToCheckout}>Add to Cart</button>
+          <button className="cart-btn" onClick={handleProceedToCheckout}>Buy Now</button>
         </div>
-
       </div>
     </div>
   );

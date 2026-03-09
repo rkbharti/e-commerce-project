@@ -47,7 +47,7 @@ const ProductCarousel = ({ title, products }) => {
         {/* CAROUSEL ROW - attached to ref */}
         <div className="carousel-row" ref={rowRef}>
           {products.slice(0, 8).map(product => (
-            <ProductCard key={product.id} product={product} />
+            <ProductCard key={product._id || product.id} product = {product} />
           ))}
         </div>
 

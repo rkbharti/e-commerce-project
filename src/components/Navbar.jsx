@@ -15,7 +15,7 @@ const Navbar = () => {
 
   const handleLogout = () => {
     logout();
-    navigate("/");
+    navigate("/login"); // Logout ke baad login page par bhejna behtar hai
   };
 
   const handleSearchSubmit = (e) => {
@@ -41,18 +41,16 @@ const Navbar = () => {
       </button>
 
       {/* Logo */}
-      <Link to="/home" className="app-nav__logo" onClick={closeMenu}>
+      <Link to="/" className="app-nav__logo" onClick={closeMenu}>
         ShopEasy
       </Link>
 
-      {/* User Greeting - Added a CSS class for better theme support */}
-      {user && (
-        <div className="app-nav__user" style={{ color: "var(--nav-text)", marginLeft: "10px" }}>
-          Hi {user.name.split(' ')[0]} 👋
-        </div>
-      )}
+      {/* 👤 User Greeting Logic */}
+      <div className="app-nav__user" style={{ color: "var(--nav-text)", marginLeft: "10px" }}>
+        {user ? `Hi ${user.name.split(' ')[0]} 👋` : "Hi Buyer 👋"}
+      </div>
 
-      {/* Theme Toggle: Optimized with variables */}
+      {/* Theme Toggle */}
       <div className="app-nav__theme-toggle">
         <span className="app-nav__theme-label">{isDark ? "Dark" : "Light"}</span>
         <button
@@ -60,17 +58,16 @@ const Navbar = () => {
           onClick={toggleTheme}
           style={{
             width: 48, height: 26, borderRadius: 13, border: "none",
-            /* FIX: Background now uses the primary theme color or a neutral muted one */
             background: isDark ? "var(--color-primary)" : "var(--color-text-muted)", 
             cursor: "pointer",
             position: "relative", padding: 0,
-            transition: "background 0.3s ease" // Smooth color fade
+            transition: "background 0.3s ease"
           }}
         >
           <span style={{
             position: "absolute", top: 2, left: isDark ? 24 : 2,
             width: 22, height: 22, borderRadius: "50%", background: "#fff",
-            transition: "left 0.3s cubic-bezier(0.4, 0, 0.2, 1)", // Smoother sliding effect
+            transition: "left 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
           }} />
         </button>
       </div>
@@ -89,19 +86,32 @@ const Navbar = () => {
 
       {/* Nav Links */}
       <ul className={`app-nav__links ${menuOpen ? "open" : ""}`}>
-        <li><Link to="/home" className="app-nav__link" onClick={closeMenu}>Home</Link></li>
+        <li><Link to="/" className="app-nav__link" onClick={closeMenu}>Home</Link></li>
         <li><Link to="/products" className="app-nav__link" onClick={closeMenu}>Products</Link></li>
-        <li><Link to="/orders" className="app-nav__link" onClick={closeMenu}>My Orders</Link></li>
-        <li>
-          <Link to="/cart" className="app-nav__link" onClick={closeMenu}>
-            Cart ({cart.length})
-          </Link>
-        </li>
-        <li>
-          <button type="button" className="app-nav__logout" onClick={handleLogout}>
-            Logout
-          </button>
-        </li>
+        
+        {/* 🔒 Protected Links: Sirf Login user ko dikhenge */}
+        {user ? (
+          <>
+            <li><Link to="/orders" className="app-nav__link" onClick={closeMenu}>My Orders</Link></li>
+            <li>
+              <Link to="/cart" className="app-nav__link" onClick={closeMenu}>
+                Cart ({cart.length})
+              </Link>
+            </li>
+            <li>
+              <button type="button" className="app-nav__logout" onClick={handleLogout}>
+                Logout
+              </button>
+            </li>
+          </>
+        ) : (
+          /* 🔓 Public Links: Jab user login na ho */
+          <li>
+            <Link to="/login" className="app-nav__link" onClick={closeMenu}>
+              Login
+            </Link>
+          </li>
+        )}
       </ul>
     </nav>
   );

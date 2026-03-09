@@ -5,7 +5,10 @@ function ProductGrid({ products }) {
   return (
     <div className="product-grid">
       {products.map((product) => (
-        <ProductCard key={product.id} product={product} />
+        /* 💡 MongoDB Atlas mein 'id' nahi '_id' hota hai. 
+           Hum fallback check kar rahe hain taaki dono cases handle ho sakein.
+        */
+        <ProductCard key={product._id || product.id} product={product} />
       ))}
     </div>
   );

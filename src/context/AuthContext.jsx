@@ -4,7 +4,7 @@ const AuthContext = createContext();
 
 // 💡 Senior Tip: URL ko ek jagah define karein. 
 // Jab ngrok restart ho, toh bas yahan URL badal dein.
-const BASE_URL = " https://amalia-stolid-chelsey.ngrok-free.dev"; 
+const BASE_URL = "https://amalia-stolid-chelsey.ngrok-free.dev"; 
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(() => {

@@ -1,17 +1,16 @@
-import { Navigate } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 const ProtectedRoute = ({ children }) => {
   const { user } = useAuth();
+  const location = useLocation(); // 👈 1. Current location pakdo
 
-  // If the 'user' state is null (and context couldn't find it in localStorage), 
-  // redirect to login.
   if (!user) {
-    return <Navigate to="/login" replace />;
+    // 👈 2. Login pe bhejte waqt 'state' mein current rasta pass karo
+    return <Navigate to="/login" state={{ from: location.pathname }} replace />;
   }
 
   return children;
 };
-
 
 export default ProtectedRoute;

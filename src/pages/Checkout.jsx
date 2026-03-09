@@ -27,7 +27,7 @@ const Checkout = ({ cart, totalAmount, clearCart }) => {
     setLoading(true); 
 
     const orderData = {
-      userId: user.id, 
+      userId: user?.id, // ✅ Safety check added
       items: cart.map(item => ({
         name: item.name || item.title, 
         price: item.price,
@@ -39,12 +39,11 @@ const Checkout = ({ cart, totalAmount, clearCart }) => {
     };
 
     try {
-      // ✅ FIX: Use BASE_URL and add ngrok-skip header
       const response = await fetch(`${BASE_URL}/api/orders/place`, {
         method: "POST",
         headers: { 
             "Content-Type": "application/json",
-            "ngrok-skip-browser-warning": "true" // Required for mobile bypass
+            "ngrok-skip-browser-warning": "true" 
         },
         body: JSON.stringify(orderData),
       });
@@ -103,7 +102,7 @@ const Checkout = ({ cart, totalAmount, clearCart }) => {
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.5rem" }}>
             <span style={{ fontSize: "1.2rem", fontWeight: "500" }}>Order Total:</span>
             <span style={{ fontSize: "1.8rem", fontWeight: "bold", color: "var(--color-primary)" }}>
-              ${totalAmount}
+              ${totalAmount ? Number(totalAmount).toFixed(2) : "0.00"}
             </span>
           </div>
 
