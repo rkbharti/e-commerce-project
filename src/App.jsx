@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, useLocation, Navigate } from "react-router-dom";
 import { useAuth } from "./context/AuthContext"; 
 import { useCart } from "./context/CartContext"; // Importing the global cart hook
+import { Analytics } from "@vercel/analytics/next"
 
 // Component Imports
 import Navbar from "./components/Navbar";
