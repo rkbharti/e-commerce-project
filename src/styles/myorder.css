@@ -1,0 +1,85 @@
+/* Container for the whole page */
+.orders-container {
+  background-color: transparent;
+  min-height: 80vh;
+}
+
+.orders-container h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  color: var(--text-color); /* Uses your theme variable */
+  border-bottom: 2px solid #ff9900;
+  display: inline-block;
+  padding-bottom: 5px;
+}
+
+/* Individual Order Card */
+.order-card {
+  background: var(--card-bg); /* Use a variable or #fff / #1a1a1a */
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.order-card:hover {
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+/* Header of the card (ID and Date) */
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+}
+
+.order-id {
+  font-weight: bold;
+  color: #555;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+/* Items List */
+.order-items {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.order-item-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.95rem;
+}
+
+/* Footer (Status and Total) */
+.order-footer {
+  margin-top: 15px;
+  padding-top: 10px;
+  border-top: 1px dashed #ccc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Dynamic Status Badges */
+.status-badge {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.status-processing { background: #fff3e0; color: #ef6c00; }
+.status-shipped { background: #e3f2fd; color: #1565c0; }
+.status-delivered { background: #e8f5e9; color: #2e7d32; }
+
+.total-price {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #ff9900;
+}

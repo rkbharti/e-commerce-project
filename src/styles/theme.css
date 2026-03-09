@@ -49,9 +49,10 @@
 }
 
 [data-theme="dark"] {
+  /* Adjusted for deep neutral dark look (No blue-black clash) */
   --color-bg: #0f1111;
   --color-bg-elevated: #1a1d1f;
-  --color-bg-card: #232f3e;
+  --color-bg-card: #1a1d1f; 
   --color-text: rgba(255, 255, 255, 0.92);
   --color-text-muted: rgba(255, 255, 255, 0.65);
   --color-border: #37475a;
@@ -64,13 +65,15 @@
   --shadow-card-hover: 0 12px 32px rgba(0, 0, 0, 0.5);
 }
 
-/* Base typography */
+/* Base typography & Smooth Transition Fix */
 body {
-  font-family: "Segoe UI", "Amazon Ember", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: "Segoe UI", "Amazon Ember", system-ui, -apple-system, sans-serif;
   background: var(--color-bg);
   color: var(--color-text);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  /* Smooth color shifting */
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Navbar - Amazon-style header */
@@ -87,6 +90,8 @@ body {
   position: sticky;
   top: 0;
   z-index: 1000;
+  /* Smooth transition for dark mode */
+  transition: background-color 0.3s ease;
 }
 
 .app-nav__logo {
@@ -97,6 +102,7 @@ body {
   text-decoration: none !important;
   transition: opacity 0.2s;
 }
+
 .app-nav__logo:hover {
   opacity: 0.9;
 }
@@ -118,11 +124,13 @@ body {
   background: #fff;
   color: #1a1a1a;
   outline: none;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition: all 0.2s ease;
 }
+
 .app-nav__search-input::placeholder {
   color: #9ca3af;
 }
+
 .app-nav__search-input:focus {
   border-color: var(--color-primary);
   box-shadow: 0 0 0 3px rgba(255, 153, 0, 0.2);
@@ -139,6 +147,7 @@ body {
   cursor: pointer;
   transition: background 0.2s;
 }
+
 .app-nav__search-btn:hover {
   background: var(--color-primary-hover);
 }
@@ -159,8 +168,9 @@ body {
   font-size: 0.95rem;
   padding: 6px 12px;
   border-radius: var(--radius-sm);
-  transition: background 0.2s, color 0.2s;
+  transition: all 0.2s ease;
 }
+
 .app-nav__link:hover {
   background: rgba(255, 255, 255, 0.1);
 }
@@ -175,6 +185,7 @@ body {
   cursor: pointer;
   transition: all 0.2s !important;
 }
+
 .app-nav__logout:hover {
   background: rgba(255, 255, 255, 0.1) !important;
   border-color: #fff !important;
@@ -189,6 +200,11 @@ body {
 .app-nav__theme-label {
   font-size: 0.85rem;
   color: rgba(255, 255, 255, 0.7);
+}
+
+/* Product Card & Category UI Transitions */
+.product-card, .category-btn, .category-navbar {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
 /* Hamburger (mobile) */
@@ -260,6 +276,7 @@ body {
     gap: 0.5rem;
     border-top: 1px solid rgba(255, 255, 255, 0.15);
     margin-top: 0.5rem;
+    background: var(--nav-bg); /* Ensure mobile menu has nav background */
   }
 
   .app-nav__links.open {

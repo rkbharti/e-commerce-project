@@ -1,44 +1,81 @@
-.auth-page {
+/* =========================================
+   AUTH PAGES (Login & Signup)
+   ========================================= */
+
+   .auth-page {
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    }
-    
-    .auth-card {
-    background: #1c2532;
-    padding: 2rem;
-    border-radius: 12px;
+    /* FIX: Page ka background ab theme ke hisab se change hoga */
+    background-color: var(--color-bg); 
+    padding: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.auth-card {
+    /* FIX: Card ka background ab light mein white aur dark mein dark-blue hoga */
+    background: var(--color-bg-elevated);
+    padding: 2.5rem;
+    border-radius: var(--radius-lg, 12px);
+    box-shadow: var(--shadow-xl);
     width: 100%;
     max-width: 420px;
-    }
-    
-    .auth-input {
+    /* Border visibility ke liye */
+    border: 1px solid var(--color-border);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.auth-card h2 {
+    color: var(--color-text);
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.auth-input {
     width: 100%;
     padding: 12px;
-    margin-bottom: 12px;
-    border-radius: 6px;
-    background: #0b0f14;
-    border: 1px solid #2b3647;
-    color: #e0e0e0;
+    margin-bottom: 16px;
+    border-radius: var(--radius-sm, 6px);
+    /* FIX: Input box ab light mode mein white aur dark mein black dikhega */
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    color: var(--color-text);
+    font-size: 1rem;
     outline: none;
-    }
-    
-    .auth-input:focus {
-    border-color: #ff9900;
-    }
-    
-    .auth-btn {
+    transition: all 0.2s ease;
+}
+
+.auth-input:focus {
+    /* Amazon style focus color */
+    border-color: var(--color-primary, #ff9900);
+    box-shadow: 0 0 0 3px rgba(255, 153, 0, 0.2);
+}
+
+.auth-btn {
     width: 100%;
     padding: 12px;
-    background: #ff9900;
+    background: var(--color-primary, #ff9900);
     border: none;
     border-radius: 6px;
     font-weight: 700;
-    color: #111;
+    /* Button text hamesha dark rakhna better hota hai Amazon style mein */
+    color: #111; 
     cursor: pointer;
-    }
-    
-    .auth-btn:hover {
-    background: #d4920a;
-    }
+    transition: background 0.2s ease;
+}
+
+.auth-btn:hover {
+    background: var(--color-primary-hover, #e88b00);
+}
+
+.auth-footer {
+    margin-top: 1.5rem;
+    text-align: center;
+    color: var(--color-text-muted);
+}
+
+.auth-footer a {
+    color: var(--color-primary);
+    font-weight: 600;
+}

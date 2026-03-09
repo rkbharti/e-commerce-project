@@ -1,42 +1,63 @@
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState } from "react";
 
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(() => {
-    // Check if there is an ACTIVE session in storage on load
-    const savedSession = localStorage.getItem("active_user");
-    return savedSession ? JSON.parse(savedSession) : null;
+    // We still check localStorage for a TOKEN to stay logged in on refresh
+    const savedToken = localStorage.getItem("token");
+    const savedUser = localStorage.getItem("user");
+    return savedUser ? JSON.parse(savedUser) : null;
   });
 
-  const login = (email, password) => {
-    // We check against the "registered_user" we created during signup
-    const registeredUserRaw = localStorage.getItem("registered_user");
+  // --- NEW SIGNUP LOGIC (Backend) ---
+  const signup = async (name, email, password) => {
+    try {
+      const response = await fetch('http://localhost:5000/api/auth/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, password }),
+      });
 
-    if (!registeredUserRaw) return false;
+      const data = await response.json();
 
-    const registeredUser = JSON.parse(registeredUserRaw);
-
-    if (registeredUser.email === email && registeredUser.password === password) {
-      // SUCCESS: Save to state
-      setUser(registeredUser);
-      // SUCCESS: Save to localStorage so it survives REFRESH
-      localStorage.setItem("active_user", JSON.stringify(registeredUser));
-      return true;
+      if (response.ok) {
+        return { success: true };
+      } else {
+        return { success: false, message: data.message || "Signup failed" };
+      }
+    } catch (error) {
+      return { success: false, message: "Server error. Check if backend is running." };
     }
-    return false;
   };
 
-  const signup = (name, email, password) => {
-    const newUser = { name, email, password };
-    // This acts as our "Database"
-    localStorage.setItem("registered_user", JSON.stringify(newUser));
+  const login = async (email, password) => {
+    try {
+      const response = await fetch('http://localhost:5000/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+  
+      const data = await response.json();
+  
+      if (response.ok) {
+        // SUCCESS: Save user to state and localStorage
+        setUser(data.user);
+        localStorage.setItem("user", JSON.stringify(data.user));
+        return { success: true };
+      } else {
+        return { success: false, message: data.message };
+      }
+    } catch (error) {
+      return { success: false, message: "Server error" };
+    }
   };
 
   const logout = () => {
     setUser(null);
-    // Remove only the active session, keep the "registered_user" database
-    localStorage.removeItem("active_user");
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
   };
 
   return (

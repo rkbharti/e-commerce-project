@@ -1,18 +1,99 @@
-.product-grid {
+/* =======================================================
+   PRODUCT GRID - Updated for 6 Columns & 5 Rows
+   ======================================================= */
+   .product-grid {
     display: grid;
+    /* FIX: Desktop par 6 equal columns banayega */
     grid-template-columns: repeat(6, 1fr);
-    gap: 22px;
-    padding: 30px;
-    }
-    
-    @media (max-width: 1200px) {
+    /* Space kam rakha hai taaki 6 cards screen par fit ho jayein */
+    gap: 15px; 
+    padding: 20px;
+    background-color: var(--color-bg);
+    /* 5 rows ki height automatic adjust hogi contents ke hisab se */
+    align-items: stretch;
+}
+
+/* =======================================================
+   PRODUCT CARD - Design & Image Optimization
+   ======================================================= */
+.product-card {
+    background-color: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    padding: 12px; /* Thoda padding kam kiya 6 columns ke liye */
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    color: var(--color-text);
+    overflow: hidden;
+    position: relative;
+    min-width: 0; /* Flex/Grid blowout rokne ke liye */
+}
+
+/* Image Size Control */
+.product-card img {
+    width: 100%;
+    /* 6 columns mein height thodi kam (160px) behtar lagti hai */
+    height: 160px;         
+    object-fit: contain;   
+    background: #fff;      
+    border-radius: 6px;
+    margin-bottom: 10px;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--color-primary);
+}
+
+/* Card Text Styling */
+.product-card h3 {
+    color: var(--color-text);
+    font-size: 0.9rem; /* Chota font size 6 columns ke liye perfect hai */
+    font-weight: 600;
+    margin-bottom: 5px;
+    line-height: 1.3;
+    /* 2 lines tak title restrict karein */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.product-card .price {
+    color: var(--color-primary);
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-top: auto; 
+}
+
+/* =======================================================
+   RESPONSIVE BREAKPOINTS (Zaroori hai!)
+   ======================================================= */
+
+/* Laptops/Small Desktops (max 1200px) -> 4 Columns */
+@media (max-width: 1200px) {
     .product-grid {
-    grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(4, 1fr);
     }
-    }
-    
-    @media (max-width: 800px) {
+}
+
+/* Tablets (max 768px) -> 2 Columns */
+@media (max-width: 768px) {
     .product-grid {
-    grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        padding: 15px;
     }
+    .product-card img {
+        height: 140px; /* Mobile par image thodi choti */
     }
+}
+
+/* Mobile Phones (max 480px) -> 1 Column */
+@media (max-width: 480px) {
+    .product-grid {
+        grid-template-columns: 1fr;
+    }
+}

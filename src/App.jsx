@@ -1,84 +1,74 @@
 import { BrowserRouter, Routes, Route, useLocation, Navigate } from "react-router-dom";
-import { useAuth } from "./context/AuthContext"; // Import your custom hook
+import { useAuth } from "./context/AuthContext"; 
+import { useCart } from "./context/CartContext"; // Importing the global cart hook
 
+// Component Imports
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Products from "./pages/Products";
 import Cart from "./pages/Cart";
 import ProductDetails from "./pages/ProductDetails";
 import OrderSuccess from "./pages/OrderSuccess";
+import Checkout from "./pages/Checkout"; 
+import MyOrders from "./pages/MyOrders";  
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 function AppRoutes() {
   const { pathname } = useLocation();
-  const { user } = useAuth(); // Get the persistent user state from Context
+  const { user } = useAuth(); // Retrieves logged-in user status
+  
+  // Consuming global cart state instead of local useState to ensure data consistency across pages
+  const { cart, setCart } = useCart(); 
 
-  /*
-  ------------------------------------------------------
-  DYNAMIC NAVBAR LOGIC
-  ------------------------------------------------------
-  Hide navbar on Login/Signup/Root ONLY if the user is 
-  not logged in. If they are logged in, we show it everywhere.
-  */
+  // Dynamically calculates total price by iterating through the current cart items
+  const total = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
+
+  // Resets the cart to an empty array after a transaction is successfully completed
+  const clearCart = () => setCart([]);
+
+  // Determines whether to show or hide the Navbar based on the current URL path and auth status
   const hideNavbar = (pathname === "/" || pathname === "/login" || pathname === "/signup") && !user;
 
   return (
     <>
-      {!hideNavbar && <Navbar />}
+      {!hideNavbar && <Navbar cartCount={cart.length} />}
       <Routes>
-        {/* AUTO-REDIRECT LOGIC:
-          If a user is already logged in (persisted in localStorage), 
-          don't show them the Login/Signup pages; send them straight to /home.
-        */}
+        {/* Redirects users to Home if already logged in, otherwise shows Login */}
+        <Route path="/" element={user ? <Navigate to="/home" replace /> : <Login />} />
+        <Route path="/login" element={user ? <Navigate to="/home" replace /> : <Login />} />
+        <Route path="/signup" element={user ? <Navigate to="/home" replace /> : <Signup />} />
+
+        {/* Home dashboard accessible only to authenticated users */}
+        <Route path="/home" element={<ProtectedRoute><Home /></ProtectedRoute>} />
+        
+        {/* Displays all available products fetched from the database */}
+        <Route path="/products" element={<ProtectedRoute><Products /></ProtectedRoute>} />
+        
+        {/* Shows detailed information for a single product using its unique ID from the URL */}
+        <Route path="/product/:id" element={<ProtectedRoute><ProductDetails /></ProtectedRoute>} />
+
+        {/* View and edit items currently added to the shopping session */}
+        <Route path="/cart" element={<ProtectedRoute><Cart cart={cart} setCart={setCart} /></ProtectedRoute>} />
+
+        {/* Handles final shipping details and order submission to the backend API */}
         <Route 
-          path="/" 
-          element={user ? <Navigate to="/home" replace /> : <Login />} 
-        />
-        <Route 
-          path="/login" 
-          element={user ? <Navigate to="/home" replace /> : <Login />} 
-        />
-        <Route 
-          path="/signup" 
-          element={user ? <Navigate to="/home" replace /> : <Signup />} 
+          path="/checkout" 
+          element={
+            <ProtectedRoute>
+              <Checkout cart={cart} totalAmount={total} clearCart={clearCart} />
+            </ProtectedRoute>
+          } 
         />
 
-        {/* PROTECTED ROUTES:
-          These check the AuthContext. If no user is found in memory,
-          ProtectedRoute will kick them back to /login.
-        */}
-        <Route
-          path="/home"
-          element={
-            <ProtectedRoute>
-              <Home />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/products"
-          element={
-            <ProtectedRoute>
-              <Products />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/product/:id"
-          element={
-            <ProtectedRoute>
-              <ProductDetails />
-            </ProtectedRoute>
-          }
-        />
+        {/* Displays a list of all successful past orders linked to the user's ID */}
+        <Route path="/orders" element={<ProtectedRoute><MyOrders /></ProtectedRoute>} />
 
-        {/* Public or semi-public routes */}
-        <Route path="/cart" element={<Cart />} />
+        {/* Feedback page to confirm the order has been received by the server */}
         <Route path="/order-success" element={<OrderSuccess />} />
 
-        {/* CATCH-ALL: Redirect any unknown URL to home */}
+        {/* Redirects any undefined or broken URL paths back to the home page */}
         <Route path="*" element={<Navigate to="/home" replace />} />
       </Routes>
     </>
@@ -86,10 +76,8 @@ function AppRoutes() {
 }
 
 function App() {
+  // Main provider that enables client-side routing and history management for the application
   return (
-    /* Note: Ensure AuthProvider wraps your entire App 
-       (usually done in main.jsx or index.jsx) 
-    */
     <BrowserRouter>
       <AppRoutes />
     </BrowserRouter>

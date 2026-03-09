@@ -1,166 +1,63 @@
-/*
-========================================================
-HOME PAGE COMPONENT
-========================================================
-
-Purpose:
-Ye component ecommerce homepage render karta hai.
-
-Features added:
-✔ Category filter working
-✔ Active category highlight
-✔ Personalized "Suggested For You, Ravi"
-✔ Products filtered by category
-
-Example:
-
-Click Electronics → electronics products show
-Click Books → books products show
-Click All Products → sab products
-
-========================================================
-*/
-
-import React, { useState } from "react";
-
-/* product dataset */
+import React, { useState, useMemo } from "react";
 import products from "../data/products";
-
-/* page components */
 import HeroSlider from "../components/HeroSlider";
 import PromoBanner from "../components/PromoBanner";
 import ProductCarousel from "../components/ProductCarousel";
 import ProductGrid from "../components/ProductGrid";
-
-/* user context */
 import { useAuth } from "../context/AuthContext";
 
 const Home = () => {
-
-  /* logged in user */
   const { user } = useAuth();
-
-  /*
-  ======================================================
-  CATEGORY STATE
-  ======================================================
-  store karega current selected category
-  */
-
   const [category, setCategory] = useState("all");
 
-  /*
-  ======================================================
-  CATEGORY FILTER LOGIC
-  ======================================================
-  */
+  // Products ko mix karne ka simple tarika taki shop boring na lage
+  const shuffle = (array) => [...array].sort(() => Math.random() - 0.5);
 
-  const filteredProducts =
-    category === "all"
-      ? products
+  // useMemo ka use karke hum teeno sections ke liye alag random list bana rahe hain
+  const { suggested, deals, explore } = useMemo(() => {
+    const base = category === "all" 
+      ? products 
       : products.filter(p => p.category === category);
 
-  /*
-  ======================================================
-  PERSONALIZED TITLE
-  ======================================================
-  */
+    return {
+      // Teeno ko alag-alag shuffle kiya hai taki images repeat na ho
+      suggested: shuffle(base).slice(0, 10), 
+      deals: shuffle(base).slice(0, 8),     
+      explore: shuffle(base)                
+    };
+  }, [category]); // Jab category badlegi tabhi list update hogi
 
-  const suggestedTitle =
-    user ? `Suggested For You, ${user.name}` : "Suggested For You";
+  const suggestedTitle = user ? `Suggested For You, ${user.name}` : "Suggested For You";
 
   return (
-
     <main>
-
-      {/* HERO SLIDER */}
       <HeroSlider />
 
-      {/* =================================================
-          CATEGORY NAVBAR
-         ================================================= */}
-
       <nav className="category-navbar">
-
-        <button
-          className={`category-btn ${category === "all" ? "active" : ""}`}
-          onClick={() => setCategory("all")}
-        >
-          All Products
-        </button>
-
-        <button
-          className={`category-btn ${category === "electronics" ? "active" : ""}`}
-          onClick={() => setCategory("electronics")}
-        >
-          Electronics
-        </button>
-
-        <button
-          className={`category-btn ${category === "fashion" ? "active" : ""}`}
-          onClick={() => setCategory("fashion")}
-        >
-          Fashion
-        </button>
-
-        <button
-          className={`category-btn ${category === "home" ? "active" : ""}`}
-          onClick={() => setCategory("home")}
-        >
-          Home & Living
-        </button>
-
-        <button
-          className={`category-btn ${category === "books" ? "active" : ""}`}
-          onClick={() => setCategory("books")}
-        >
-          Books
-        </button>
-
-        <button
-          className={`category-btn ${category === "sports" ? "active" : ""}`}
-          onClick={() => setCategory("sports")}
-        >
-          Sports
-        </button>
-
+        {["all", "electronics", "fashion", "home", "books", "sports"].map((cat) => (
+          <button 
+            key={cat}
+            className={`category-btn ${category === cat ? "active" : ""}`} 
+            onClick={() => setCategory(cat)}
+          >
+            {cat.charAt(0).toUpperCase() + cat.slice(1)}
+          </button>
+        ))}
       </nav>
 
-      {/* =================================================
-          SUGGESTED PRODUCTS
-         ================================================= */}
+      {/* Suggested: Alag random items */}
+      <ProductCarousel title={suggestedTitle} products={suggested} />
 
-      <ProductCarousel
-        title={suggestedTitle}
-        products={filteredProducts}
-      />
-
-      {/* PROMO BANNER */}
       <PromoBanner />
 
-      {/* =================================================
-          BEST DEALS
-         ================================================= */}
+      {/* Best Deals: Bilkul alag random items */}
+      <ProductCarousel title="Best Deals" products={deals} />
 
-      <ProductCarousel
-        title="Best Deals"
-        products={filteredProducts.slice(0, 8)}
-      />
-
-      {/* =================================================
-          FULL PRODUCT GRID
-         ================================================= */}
-
+      {/* Explore: Puri jumbled list */}
       <section id="products">
-
-        <h2 style={{ padding: "20px 30px" }}>
-          Explore Products
-        </h2>
-
-        <ProductGrid products={filteredProducts} />
-
+        <h2 style={{ padding: "20px 30px" }}>Explore Products</h2>
+        <ProductGrid products={explore} />
       </section>
-
     </main>
   );
 };

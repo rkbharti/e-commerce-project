@@ -13,9 +13,10 @@ const Cart = () => {
   const total      = subtotal + shipping;
   const itemCount  = cart.reduce((sum, item) => sum + item.quantity, 0);
 
-  const handlePlaceOrder = () => {
-    cart.forEach((item) => removeFromCart(item.id));
-    navigate("/order-success");
+  // --- UPDATED LOGIC ---
+  const handlePlaceOrder = () => { 
+    // We clear it in Checkout.jsx ONLY after the database confirms the order is saved.
+    navigate("/checkout"); 
   };
 
   /* ── EMPTY STATE ── */

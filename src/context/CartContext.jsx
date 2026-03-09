@@ -1,82 +1,67 @@
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState, useEffect, useCallback } from "react";
+import { useAuth } from "./AuthContext"; // AuthContext import karna zaroori hai
 
-// Create CartContext
 export const CartContext = createContext();
 
-// CartProvider component
 export function CartProvider({ children }) {
-  // Read cart from localStorage on initial load
-  const getInitialCart = () => {
-    if (typeof window !== "undefined") {
-      const storedCart = localStorage.getItem("cart");
-      if (storedCart) {
-        try {
-          return JSON.parse(storedCart);
-        } catch (e) {
-          // If parsing fails, start with empty cart
-          return [];
-        }
-      }
-    }
-    return [];
-  };
+  const { user } = useAuth(); // Logged-in user ki details nikalna
 
-  const [cart, setCart] = useState(getInitialCart);
+  // Dynamic key banana taaki har user ka cart alag rahe
+  const getCartKey = useCallback(() => {
+    return user ? `cart_${user.email}` : "cart_guest";
+  }, [user]);
 
-  // Persist cart in localStorage whenever it changes
+  const [cart, setCart] = useState([]);
+
+  // 1. Jab user change ho (Login/Logout), naya cart load karein
   useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(cart));
-  }, [cart]);
+    const key = getCartKey();
+    const storedCart = localStorage.getItem(key);
+    if (storedCart) {
+      try {
+        setCart(JSON.parse(storedCart));
+      } catch (e) {
+        setCart([]);
+      }
+    } else {
+      setCart([]);
+    }
+  }, [user, getCartKey]);
 
-  // Add a product to the cart
+  // 2. Cart state change hote hi use correct key mein save karein
+  useEffect(() => {
+    const key = getCartKey();
+    localStorage.setItem(key, JSON.stringify(cart));
+  }, [cart, getCartKey]);
+
   const addToCart = (product) => {
     setCart((prevCart) => {
       const exists = prevCart.find((item) => item.id === product.id);
       if (exists) {
-        // If product exists, increase its quantity
         return prevCart.map((item) =>
-          item.id === product.id
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
+          item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
         );
       }
-      // If product does not exist, add with quantity 1
-      return [
-        ...prevCart,
-        {
-          id: product.id,
-          title: product.title,
-          price: product.price,
-          image: product.image,
-          quantity: 1,
-        },
-      ];
+      return [...prevCart, { ...product, quantity: 1 }];
     });
   };
 
-  // Remove a product from the cart by id
   const removeFromCart = (id) => {
     setCart((prevCart) => prevCart.filter((item) => item.id !== id));
   };
 
-  // Increase quantity of specific item
   const increaseQuantity = (id) => {
     setCart((prevCart) =>
       prevCart.map((item) =>
-        item.id === id
-          ? { ...item, quantity: item.quantity + 1 }
-          : item
+        item.id === id ? { ...item, quantity: item.quantity + 1 } : item
       )
     );
   };
 
-  // Decrease quantity but not below 1
   const decreaseQuantity = (id) => {
     setCart((prevCart) =>
       prevCart.map((item) =>
-        item.id === id
-          ? { ...item, quantity: item.quantity > 1 ? item.quantity - 1 : 1 }
-          : item
+        item.id === id ? { ...item, quantity: item.quantity > 1 ? item.quantity - 1 : 1 } : item
       )
     );
   };
@@ -85,6 +70,7 @@ export function CartProvider({ children }) {
     <CartContext.Provider
       value={{
         cart,
+        setCart,
         addToCart,
         removeFromCart,
         increaseQuantity,
@@ -96,7 +82,6 @@ export function CartProvider({ children }) {
   );
 }
 
-// Custom hook to use the cart context
 export function useCart() {
   return useContext(CartContext);
 }
