@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import ProductGrid from "../components/ProductGrid";
-// 💡 SAABSE ZAROORI: Apni local file import karein
-import localProducts from "../data/product"; 
+
 
 const BASE_URL = "https://amalia-stolid-chelsey.ngrok-free.dev"; 
 
