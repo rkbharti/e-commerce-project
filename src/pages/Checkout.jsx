@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
-// 💡 Senior Tip: Backend ka wahi URL use karein jo ngrok terminal (Port 5000) mein hai
+// ✅ Backend URL
 const BASE_URL = "https://e-commerce-project-k8h6.onrender.com";
 
 const Checkout = ({ cart, totalAmount, clearCart }) => {
@@ -27,7 +27,8 @@ const Checkout = ({ cart, totalAmount, clearCart }) => {
     setLoading(true); 
 
     const orderData = {
-      userId: user?.id, // ✅ Safety check added
+      // ✅ FIX: MongoDB usually uses _id. Checking both just in case.
+      userId: user?._id || user?.id, 
       items: cart.map(item => ({
         name: item.name || item.title, 
         price: item.price,
@@ -42,8 +43,8 @@ const Checkout = ({ cart, totalAmount, clearCart }) => {
       const response = await fetch(`${BASE_URL}/api/orders/place`, {
         method: "POST",
         headers: { 
-            "Content-Type": "application/json",
-            "ngrok-skip-browser-warning": "true" 
+            "Content-Type": "application/json"
+            // ✅ Render par ngrok header ki zaroorat nahi hai
         },
         body: JSON.stringify(orderData),
       });
@@ -58,7 +59,7 @@ const Checkout = ({ cart, totalAmount, clearCart }) => {
       }
     } catch (error) {
       console.error("Order Error:", error);
-      alert("Network Error. Check if your backend ngrok is running!");
+      alert("Something went wrong. Please try again!");
     } finally {
       setLoading(false); 
     }

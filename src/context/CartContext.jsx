@@ -23,11 +23,10 @@ export function CartProvider({ children }) {
       const storedUserCart = JSON.parse(localStorage.getItem(userKey) || "[]");
       
       if (storedGuestCart.length > 0) {
-        // ✅ GUEST CART KO USER CART MEIN MERGE KARO
-        // Hum guest cart ke items ko user cart mein add kar rahe hain (duplicates handle karke)
+        // ✅ GUEST CART KO USER CART MEIN MERGE KARO (Using _id)
         const mergedCart = [...storedUserCart];
         storedGuestCart.forEach(gItem => {
-          const exists = mergedCart.find(uItem => uItem.id === gItem.id);
+          const exists = mergedCart.find(uItem => uItem._id === gItem._id);
           if (exists) {
             exists.quantity += gItem.quantity;
           } else {
@@ -36,20 +35,17 @@ export function CartProvider({ children }) {
         });
 
         setCart(mergedCart);
-        // Guest cart saaf kar do kyunki ab wo user mein merge ho gaya hai
         localStorage.removeItem(guestKey);
       } else {
         setCart(storedUserCart);
       }
     } else {
-      // Agar logout hai toh guest cart load karo
       setCart(storedGuestCart);
     }
-  }, [user]); // Sirf login/logout par trigger hoga
+  }, [user]);
 
   // 2. Save Logic
   useEffect(() => {
-    // Pehli baar render par save na karein varna initial state [] save ho jayegi
     if (isFirstRender.current) {
       isFirstRender.current = false;
       return;
@@ -58,34 +54,38 @@ export function CartProvider({ children }) {
     localStorage.setItem(key, JSON.stringify(cart));
   }, [cart, getCartKey]);
 
+  // ✅ Add to Cart (Only using _id)
   const addToCart = (product) => {
     setCart((prevCart) => {
-      const exists = prevCart.find((item) => item.id === product.id);
+      const exists = prevCart.find((item) => item._id === product._id);
       if (exists) {
         return prevCart.map((item) =>
-          item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
+          item._id === product._id ? { ...item, quantity: item.quantity + 1 } : item
         );
       }
       return [...prevCart, { ...product, quantity: 1 }];
     });
   };
 
+  // ✅ Remove from Cart (Only using _id)
   const removeFromCart = (id) => {
-    setCart((prevCart) => prevCart.filter((item) => item.id !== id));
+    setCart((prevCart) => prevCart.filter((item) => item._id !== id));
   };
 
+  // ✅ Increase Quantity (Only using _id)
   const increaseQuantity = (id) => {
     setCart((prevCart) =>
       prevCart.map((item) =>
-        item.id === id ? { ...item, quantity: item.quantity + 1 } : item
+        item._id === id ? { ...item, quantity: item.quantity + 1 } : item
       )
     );
   };
 
+  // ✅ Decrease Quantity (Only using _id)
   const decreaseQuantity = (id) => {
     setCart((prevCart) =>
       prevCart.map((item) =>
-        item.id === id ? { ...item, quantity: item.quantity > 1 ? item.quantity - 1 : 1 } : item
+        item._id === id ? { ...item, quantity: item.quantity > 1 ? item.quantity - 1 : 1 } : item
       )
     );
   };

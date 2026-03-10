@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"; 
-import { useParams, useNavigate, useLocation } from "react-router-dom"; 
+import { useParams, useNavigate } from "react-router-dom"; 
 import { useCart } from "../context/CartContext";
 import { useAuth } from "../context/AuthContext";
 
@@ -22,9 +22,7 @@ function ProductDetails() {
     const fetchProductDetails = async () => {
       setLoading(true);
       try {
-        const response = await fetch(`${BASE_URL}/api/products/${id}`, {
-          headers: { "ngrok-skip-browser-warning": "true" }
-        });
+        const response = await fetch(`${BASE_URL}/api/products/${id}`);
         if (!response.ok) throw new Error("Product fetch failed!");
         const data = await response.json();
         setProduct(data);
@@ -40,16 +38,20 @@ function ProductDetails() {
     fetchProductDetails();
   }, [id]);
 
-  // ✅ Fix: Redirection Logic with dual safety
-  const handleProceedToCheckout = () => {
+  // 🛒 Sirf Cart mein add karne ke liye
+  const handleAddToCart = () => {
     if (product) {
       addToCart(product);
-      
+      alert("Added to Cart! ✅");
+    }
+  };
+
+  // 🚀 Sidha Checkout par jaane ke liye
+  const handleBuyNow = () => {
+    if (product) {
+      addToCart(product);
       if (!user) {
-        // 1. Storage mein save karo (Backup)
         localStorage.setItem("redirectAfterLogin", "/checkout");
-        
-        // 2. React Router State mein bhejo (Primary)
         navigate("/login", { state: { from: "/checkout" } });
       } else {
         navigate("/checkout");
@@ -109,8 +111,9 @@ function ProductDetails() {
         <div className="buy-box">
           <div className="buy-price">${product.price?.toFixed(2)}</div>
           <p className="stock-text" style={{ color: "#00c853" }}>In Stock</p>
-          <button className="buy-btn" onClick={handleProceedToCheckout}>Add to Cart</button>
-          <button className="cart-btn" onClick={handleProceedToCheckout}>Buy Now</button>
+          {/* ✅ Buttons separated */}
+          <button className="buy-btn" onClick={handleAddToCart}>Add to Cart</button>
+          <button className="cart-btn" onClick={handleBuyNow}>Buy Now</button>
         </div>
       </div>
     </div>

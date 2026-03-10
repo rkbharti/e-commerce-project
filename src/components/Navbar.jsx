@@ -13,9 +13,12 @@ const Navbar = () => {
   const { isDark, toggleTheme } = useTheme();
   const navigate = useNavigate();
 
+  // ✅ Total items count calculation (including quantities)
+  const cartCount = cart.reduce((total, item) => total + (item.quantity || 0), 0);
+
   const handleLogout = () => {
     logout();
-    navigate("/login"); // Logout ke baad login page par bhejna behtar hai
+    navigate("/login");
   };
 
   const handleSearchSubmit = (e) => {
@@ -56,12 +59,11 @@ const Navbar = () => {
         <button
           type="button"
           onClick={toggleTheme}
+          className="theme-switch-btn"
           style={{
             width: 48, height: 26, borderRadius: 13, border: "none",
             background: isDark ? "var(--color-primary)" : "var(--color-text-muted)", 
-            cursor: "pointer",
-            position: "relative", padding: 0,
-            transition: "background 0.3s ease"
+            cursor: "pointer", position: "relative", padding: 0, transition: "background 0.3s ease"
           }}
         >
           <span style={{
@@ -89,15 +91,17 @@ const Navbar = () => {
         <li><Link to="/" className="app-nav__link" onClick={closeMenu}>Home</Link></li>
         <li><Link to="/products" className="app-nav__link" onClick={closeMenu}>Products</Link></li>
         
-        {/* 🔒 Protected Links: Sirf Login user ko dikhenge */}
+        {/* 🛒 Cart Link (Ab hamesha dikhega, chahe login ho ya na ho) */}
+        <li>
+          <Link to="/cart" className="app-nav__link" onClick={closeMenu}>
+            Cart <span className="cart-badge-count">({cartCount})</span>
+          </Link>
+        </li>
+
+        {/* 🔒 Conditional Links */}
         {user ? (
           <>
             <li><Link to="/orders" className="app-nav__link" onClick={closeMenu}>My Orders</Link></li>
-            <li>
-              <Link to="/cart" className="app-nav__link" onClick={closeMenu}>
-                Cart ({cart.length})
-              </Link>
-            </li>
             <li>
               <button type="button" className="app-nav__logout" onClick={handleLogout}>
                 Logout
@@ -105,7 +109,6 @@ const Navbar = () => {
             </li>
           </>
         ) : (
-          /* 🔓 Public Links: Jab user login na ho */
           <li>
             <Link to="/login" className="app-nav__link" onClick={closeMenu}>
               Login
