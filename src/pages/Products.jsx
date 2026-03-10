@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import ProductGrid from "../components/ProductGrid";
 
 // Ngrok URL (Backend URL)
-const BASE_URL = "https://amalia-stolid-chelsey.ngrok-free.dev"; 
+const BASE_URL = "https://e-commerce-project-k8h6.onrender.com";
 
 const categories = [
   { label: "All Products", value: "all" },

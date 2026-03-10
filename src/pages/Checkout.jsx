@@ -3,7 +3,7 @@ import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 // 💡 Senior Tip: Backend ka wahi URL use karein jo ngrok terminal (Port 5000) mein hai
-const BASE_URL = "https://amalia-stolid-chelsey.ngrok-free.dev"; 
+const BASE_URL = "https://e-commerce-project-k8h6.onrender.com";
 
 const Checkout = ({ cart, totalAmount, clearCart }) => {
   const { user } = useAuth(); 

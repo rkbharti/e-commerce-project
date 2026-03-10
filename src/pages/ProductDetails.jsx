@@ -3,7 +3,7 @@ import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import { useAuth } from "../context/AuthContext";
 
-const BASE_URL = "https://amalia-stolid-chelsey.ngrok-free.dev";
+const BASE_URL = "https://e-commerce-project-k8h6.onrender.com";
 const PLACEHOLDER_IMG = "https://via.placeholder.com/400?text=No+Image+Available";
 
 function ProductDetails() {

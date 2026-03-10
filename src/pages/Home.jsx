@@ -6,7 +6,7 @@ import ProductGrid from "../components/ProductGrid";
 import { useAuth } from "../context/AuthContext";
 
 // Backend URL
-const BASE_URL = "https://amalia-stolid-chelsey.ngrok-free.dev";
+const BASE_URL = "https://e-commerce-project-k8h6.onrender.com";
 
 const Home = () => {
   const { user } = useAuth();
