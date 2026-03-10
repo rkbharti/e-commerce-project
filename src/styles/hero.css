@@ -1,118 +1,65 @@
 .hero-slider {
     width: 100%;
-    height: 340px;
+    height: 380px; /* Ek fixed standard height */
     position: relative;
     overflow: hidden;
-    }
-    
-    .hero-slide {
+    background-color: var(--color-bg);
+}
+
+.hero-slide {
     width: 100%;
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    }
-    
-    .hero-slide img,
-    .hero-slide__img {
+}
+
+/* 🖼️ Image Fix: Ye line image ko container ke bahar nahi jaane degi */
+.hero-slide__img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: cover; /* Image ko stretch hone se bachata hai */
     object-position: center;
     display: block;
-    }
-    
-    .hero-overlay {
+}
+
+/* Overlay jo text ko chamkayega */
+.hero-overlay {
     position: absolute;
     inset: 0;
     background: linear-gradient(
-    to right,
-    rgba(0,0,0,0.0) 0%,
-    rgba(0,0,0,0.70) 40%,
-    rgba(0,0,0,0.85) 50%,
-    rgba(0,0,0,0.0) 100%
+        to bottom,
+        rgba(0,0,0,0.2) 0%,
+        rgba(0,0,0,0.6) 100%
     );
     z-index: 1;
-    }
-    
-    .hero-content {
+}
+
+.hero-content {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: transparent;
-    padding: 28px 42px;
-    border-radius: 10px;
-    color: white;
+    color: #ffffff !important;
     text-align: center;
-    max-width: 520px;
     z-index: 2;
-    text-shadow: 0 2px 8px rgba(0,0,0,0.8);
-    }
-    
-    .hero-content h1 {
-    font-size: 2.2rem;
-    font-weight: 800;
-    line-height: 1.1;
+    width: 90%;
+    max-width: 600px;
+}
+
+.hero-content h1 {
+    font-size: 2.5rem;
     margin-bottom: 10px;
-    }
-    
-    .hero-content p {
-    margin-bottom: 20px;
-    opacity: .9;
-    }
-    
-    .hero-btn {
-    background: #ff9900;
-    border: none;
-    padding: 12px 34px;
-    border-radius: 6px;
-    font-weight: 600;
-    cursor: pointer;
-    color: #111;
-    transition: background 0.2s ease, transform 0.15s ease;
-    }
-    
-    .hero-btn:hover {
-    background: #ffb733;
-    transform: translateY(-2px);
-    }
-    
-    .hero-btn:active {
-    transform: scale(0.97);
-    }
-    
-    .hero-arrow {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 32px;
-    background: rgba(0,0,0,.5);
-    border: none;
-    color: white;
-    padding: 12px 16px;
-    cursor: pointer;
-    z-index: 20;
-    border-radius: 6px;
-    backdrop-filter: blur(8px);
-    transition: all 0.25s ease;
-    }
-    
-    .hero-arrow.left { left: 15px; }
-    .hero-arrow.right { right: 15px; }
-    
-    .hero-arrow:hover {
-    background: rgba(255,153,0,0.9);
-    transform: translateY(-50%) scale(1.1);
-    }
-    
-    .hero-slider::after {
+    text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+}
+
+/* Niche wala gradient jo content ke saath merge hota hai */
+.hero-slider::after {
     content: "";
     position: absolute;
     bottom: 0;
     width: 100%;
-    height: 120px;
-    background: linear-gradient(to bottom, transparent, #0b0f14);
+    height: 100px;
+    background: linear-gradient(to bottom, transparent, var(--color-bg));
     z-index: 3;
-    pointer-events: none;
-    }
+}

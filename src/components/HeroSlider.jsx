@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 
+
 const slides = [
   {
     image: "https://images.unsplash.com/photo-1607082350899-7e105aa886ae?w=1600",
@@ -24,7 +25,7 @@ function HeroSlider() {
   const nextSlide = () => setCurrent((prev) => (prev + 1) % slides.length);
   const prevSlide = () => setCurrent((prev) => (prev - 1 + slides.length) % slides.length);
 
-  // FIXED: Shop Now scrolls to products section
+  // Smooth scroll logic
   const scrollToProducts = () => {
     const productsSection = document.getElementById("products");
     if (productsSection) {
@@ -32,7 +33,7 @@ function HeroSlider() {
     }
   };
 
-  // Auto-advance every 5s
+  // Auto-advance logic
   useEffect(() => {
     const interval = setInterval(nextSlide, 5000);
     return () => clearInterval(interval);
@@ -40,14 +41,16 @@ function HeroSlider() {
 
   return (
     <div className="hero-slider">
+      {/* Left Arrow */}
       <button 
         className="hero-arrow left" 
         onClick={prevSlide}
-        style={{ zIndex: 20 }}
+        aria-label="Previous Slide"
       >
         ❮
       </button>
 
+      {/* Main Slide Container */}
       <div className="hero-slide">
         <img 
           src={slides[current].image} 
@@ -55,12 +58,12 @@ function HeroSlider() {
           className="hero-slide__img"
         />
         
+        {/* Overlay adds contrast for text visibility */}
         <div className="hero-overlay" />
         
         <div className="hero-content">
-          <h1>{slides[current].title}</h1>
-          <p>{slides[current].subtitle}</p>
-          {/* ✅ FIXED: Shop Now scroll restored */}
+          <h1 className="hero-title">{slides[current].title}</h1>
+          <p className="hero-subtitle">{slides[current].subtitle}</p>
           <button 
             className="hero-btn"
             onClick={scrollToProducts}
@@ -70,10 +73,11 @@ function HeroSlider() {
         </div>
       </div>
 
+      {/* Right Arrow */}
       <button 
         className="hero-arrow right" 
         onClick={nextSlide}
-        style={{ zIndex: 20 }}
+        aria-label="Next Slide"
       >
         ❯
       </button>
