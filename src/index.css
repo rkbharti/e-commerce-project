@@ -1,21 +1,35 @@
+/* 🎨 Theme Variables Definition */
 :root,
 [data-theme="light"] {
   color-scheme: light;
+  --color-bg: #ffffff;
+  --color-bg-elevated: #f4f4f4;
+  --color-text: #111111;
+  --color-text-muted: #666666;
+  --color-border: #dddddd;
+  --color-primary: #ff9900; /* Amazon Orange */
 }
 
 [data-theme="dark"] {
   color-scheme: dark;
+  --color-bg: #000000;
+  --color-bg-elevated: #111111; /* Thoda sa lighter black cards ke liye */
+  --color-text: #ffffff;
+  --color-text-muted: #aaaaaa;
+  --color-border: #222222;
+  --color-primary: #ff9900;
 }
 
+/* 🌍 Global Styles */
 body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
-  /* Basic background to prevent white flash before theme loads */
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
   background-color: var(--color-bg); 
   color: var(--color-text);
-  /* This transition makes the toggle smooth */
-  transition: background-color 0.4s ease, color 0.4s ease;
+  /* Smoothing the theme switch */
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 #root {
@@ -31,10 +45,24 @@ body {
 a {
   font-weight: 500;
   color: inherit;
-  text-decoration: inherit;
+  text-decoration: none;
 }
 
 button {
   font-family: inherit;
   cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+/* Scrollbar styling (Optional but looks pro in Dark Mode) */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 10px;
 }
